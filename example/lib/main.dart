@@ -30,7 +30,10 @@ class JalaliHomePage extends StatelessWidget {
                 firstDateRange: Jalali(1340, 3, 1),
                 lastDateRange: Jalali(1360, 12, 29),
                 disabledDayColor: Colors.red,
-
+                enabledDayColor: Colors.cyan,
+                selectedDayBackground:Colors.cyan ,
+                selectedDayColor: Colors.cyan,
+                todayColor: Colors.cyan,
               ),
             ],
           ),

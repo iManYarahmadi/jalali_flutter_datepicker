@@ -1,16 +1,20 @@
-# example
+# Jalali Flutter Date Picker
 
-A new Flutter project.
+A customizable Jalali (Persian) date picker widget for Flutter. This package allows you to easily add a Jalali date picker to your Flutter applications with various customization options including custom colors for different date states.
 
-## Getting Started
+![Jalali Flutter Date Picker](https://imgurl.ir/uploads/h707227_IMG_2087.jpg)
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- Select a date within a specified range.
+- Customize colors for enabled, disabled, selected, and today's dates.
+- Drop-down menus for selecting years.
+- Fully customizable to match your application's theme.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Add the following line to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  jalali_flutter_datepicker: ^1.0.0

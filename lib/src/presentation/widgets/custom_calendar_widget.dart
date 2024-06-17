@@ -132,9 +132,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                   ),
                                   PCalendarDatePicker(
                                     onDisplayedMonthChanged: (value) {
-                                      selectedMonthName =
-                                          monthList[value!.month - 1]
-                                              .monthName;
+
                                       selectedYearName =
                                           value!.year.toString();
                                       selectedYearNumber=value.year;
@@ -143,11 +141,18 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                         setState(() {
                                           monthList=monthGenerator(1);
                                         });
+                                        selectedMonthName =
+                                            monthList[value!.month - 1]
+                                                .monthName;
                                       }else{
                                         setState(() {
                                           monthList=monthGenerator(widget.firstDateRange.month);
 
                                         });
+                                        int monthIndex = (value!.month - widget.firstDateRange.month + 12) % 12;
+                                        selectedMonthName =
+                                            monthList[monthIndex]
+                                                .monthName;
                                       }
 
                                     },
@@ -320,11 +325,11 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
 
                                                     }else{
 
-                                                      monthList=monthGenerator(widget.firstDateRange.month);
                                                         _selectedDateNotifier.value= Jalali(
                                                             selectedYearNumber,
                                                             widget.firstDateRange.month,
                                                             10);
+                                                        monthList=monthGenerator(widget.firstDateRange.month);
                                                         selectedMonthName=getMonthNameFromList(
                                                             widget.firstDateRange.month, CalendarConstant.monthList);
                                                       selectedMonthNumber= widget.firstDateRange.month;

@@ -2,7 +2,7 @@ name: jalali_flutter_datepicker
 description: "custom date picker A persian (farsi,shamsi) datetime
  picker for flutter, inspired by material datetime picker and persian date time picker."
 version: 0.0.1
-homepage:
+homepage: https://github.com/iManYarahmadi/jalali_flutter_datepicker
 
 environment:
   sdk: '>=3.2.3 <4.0.0'

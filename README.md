@@ -1,39 +1,23 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Jalali Flutter Date Picker
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+A customizable Jalali (Persian) date picker widget for Flutter. This package allows you to easily add a Jalali date picker to your Flutter applications with various customization options including custom colors for different date states.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+<p align="center">
+  <img src="https://imgurl.ir/uploads/h707227_IMG_2087.jpg" width="400" />
+  <img src="https://imgurl.ir/uploads/x23995_IMG_2088.jpg" width="400" />
+</p>
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Select a date within a specified range.
+- Customize colors for enabled, disabled, selected, and today's dates.
+- Drop-down menus for selecting years.
+- Fully customizable to match your application's theme.
 
-## Getting started
+## Installation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add the following line to your `pubspec.yaml`:
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```yaml
+dependencies:
+  jalali_flutter_datepicker: ^1.0.0
