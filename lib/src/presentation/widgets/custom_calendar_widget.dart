@@ -53,6 +53,8 @@ class JalaliFlutterDatePicker extends StatefulWidget {
   final Color? selectedDayColor;
   final Color? selectedDayBackground;
   final Color? todayColor;
+  final Color? footerIconColor;
+  final TextStyle? footerTextStyle;
 
   JalaliFlutterDatePicker({
     super.key,
@@ -60,21 +62,19 @@ class JalaliFlutterDatePicker extends StatefulWidget {
     required this.onDateChanged,
     required this.firstDateRange,
     required this.lastDateRange,
-    this.customArrowWidget = const Icon(
-      CupertinoIcons.chevron_down,
-    ),
+    this.customArrowWidget = const Icon(CupertinoIcons.chevron_down),
     this.disabledDayColor = Colors.white,
     this.enabledDayColor = Colors.black,
     this.selectedDayColor = Colors.white,
     this.selectedDayBackground = Colors.green,
     this.todayColor = Colors.green,
-  });
+    this.footerIconColor = Colors.green,
+    TextStyle? footerTextStyle,
+  }) : footerTextStyle = footerTextStyle ?? const TextStyle(color: Colors.green, fontSize: 12);
 
   @override
-  _JalaliFlutterDatePickerState createState() =>
-      _JalaliFlutterDatePickerState();
+  _JalaliFlutterDatePickerState createState() => _JalaliFlutterDatePickerState();
 }
-
 class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
   late ValueNotifier<Jalali> _selectedDateNotifier;
 
@@ -102,7 +102,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
   @override
   void initState() {
     super.initState();
-  
+
     // Initialize the month list based on the initial date
     if (widget.initialDate != null) {
       _selectedDateNotifier =  ValueNotifier<Jalali>(widget.initialDate);
@@ -132,7 +132,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
         builder: (context, selectedDate, _) {
           return Center(
             child: Container(
-              width: 345,
+              width: 315,
               height: 430,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -152,7 +152,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: SizedBox(
-                              width: 315,
+                              width: 290,
                               child: Column(
                                 children: [
                                   const CalendarHeaders(),
@@ -228,7 +228,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                     selectedDayColor: widget.selectedDayColor!,
                                     selectedDayBackground:
                                         widget.selectedDayBackground!,
-                                    todayColor: widget.todayColor!,
+                                    todayColor: widget.todayColor!, footerIconColor: widget.footerIconColor!, footerTextStyle: widget.footerTextStyle!,
                                   ),
                                 ],
                               ),
@@ -264,244 +264,248 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
   Widget yearSelection(int startYear, int endYear,
       {required Widget customArrowWidget}) {
     List<YearModel> yearList = yearGenerator(startYear, endYear);
-    return Stack(
+    return Column(
       children: [
-        Padding(
-          padding: const EdgeInsetsDirectional.all(8.0),
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                isYearDropdownOpen = !isYearDropdownOpen;
-              });
-            },
-            child: Container(
-              width: 100,
-              color: Colors.white,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AnimatedContainer(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                            width: 1, color: const Color(0xffE9E9E9))),
-                    curve: Curves.fastLinearToSlowEaseIn,
-                    duration: const Duration(milliseconds: 600),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 16),
-                      child: Column(
-                        children: [
-                          Column(
+        Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsetsDirectional.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isYearDropdownOpen = !isYearDropdownOpen;
+                  });
+                },
+                child: Container(
+                  width: 100,
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AnimatedContainer(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            border: Border.all(
+                                width: 1, color: const Color(0xffE9E9E9))),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        duration: const Duration(milliseconds: 600),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 16),
+                          child: Column(
                             children: [
                               Column(
                                 children: [
-                                  Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(selectedYearName),
-                                        AnimatedCrossFade(
-                                          firstChild: SizedBox(
-                                              height: 24,
-                                              width: 24,
-                                              child: customArrowWidget),
-                                          secondChild: RotatedBox(
-                                            quarterTurns: 2,
-                                            child: SizedBox(
-                                                height: 24,
-                                                width: 24,
-                                                child: customArrowWidget),
-                                          ),
-                                          crossFadeState:
-                                              isYearDropdownOpen == true
-                                                  ? CrossFadeState.showSecond
-                                                  : CrossFadeState.showFirst,
-                                          duration:
-                                              const Duration(milliseconds: 300),
-                                          secondCurve: Curves.easeIn,
-                                          sizeCurve: Curves.easeOut,
-                                        ),
-                                      ]),
+                                  Column(
+                                    children: [
+                                      Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(selectedYearName),
+                                            AnimatedCrossFade(
+                                              firstChild: SizedBox(
+                                                  height: 24,
+                                                  width: 24,
+                                                  child: customArrowWidget),
+                                              secondChild: RotatedBox(
+                                                quarterTurns: 2,
+                                                child: SizedBox(
+                                                    height: 24,
+                                                    width: 24,
+                                                    child: customArrowWidget),
+                                              ),
+                                              crossFadeState:
+                                                  isYearDropdownOpen == true
+                                                      ? CrossFadeState.showSecond
+                                                      : CrossFadeState.showFirst,
+                                              duration:
+                                                  const Duration(milliseconds: 300),
+                                              secondCurve: Curves.easeIn,
+                                              sizeCurve: Curves.easeOut,
+                                            ),
+                                          ]),
+                                    ],
+                                  ),
                                 ],
+                              ),
+                              AnimatedCrossFade(
+                                crossFadeState: isYearDropdownOpen
+                                    ? CrossFadeState.showSecond
+                                    : CrossFadeState.showFirst,
+                                duration: const Duration(milliseconds: 600),
+                                reverseDuration: Duration.zero,
+                                sizeCurve: Curves.fastLinearToSlowEaseIn,
+                                firstChild: Container(),
+                                secondChild: Column(
+                                  children: [
+                                    const Divider(
+                                      thickness: 1,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    SizedBox(
+                                      child: RawScrollbar(
+                                        controller: yearScrollController,
+                                        thumbVisibility: true,
+                                        interactive: false,
+                                        trackVisibility: false,
+                                        minThumbLength: 5,
+                                        radius: const Radius.circular(5),
+                                        thickness: 8.0,
+                                        child: yearList.isNotEmpty
+                                            ? SizedBox(
+                                                height: 200,
+                                                child: ListView.builder(
+                                                  controller: yearScrollController,
+                                                  physics:
+                                                      const BouncingScrollPhysics(),
+                                                  itemCount: yearList.length,
+                                                  itemBuilder: (context, index) =>
+                                                      GestureDetector(
+                                                    onTap: () {
+                                                      selectedYearNumber =
+                                                          yearList[index].yearId;
+
+                                                      setState(() {
+                                                        if (selectedYearNumber !=
+                                                                widget
+                                                                    .firstDateRange
+                                                                    .year &&
+                                                            selectedYearNumber !=
+                                                                widget.lastDateRange
+                                                                    .year) {
+                                                          if(monthLength() < 12){
+                                                            monthList =
+                                                                monthGenerator(1);
+                                                            _selectedDateNotifier
+                                                                .value =
+                                                                Jalali(
+                                                                    selectedYearNumber,
+                                                                    _selectedDateNotifier
+                                                                        .value.month,
+                                                                    10);
+                                                          }
+
+                                                        } else if (selectedYearNumber ==
+                                                            widget.firstDateRange
+                                                                .year) {
+                                                          _selectedDateNotifier
+                                                                  .value =
+                                                              Jalali(
+                                                                  selectedYearNumber,
+                                                                  widget
+                                                                      .firstDateRange
+                                                                      .month,
+                                                                  10);
+                                                          monthList =
+                                                              monthGenerator(widget
+                                                                  .firstDateRange
+                                                                  .month);
+                                                          selectedMonthName =
+                                                              getMonthNameFromList(
+                                                                  widget
+                                                                      .firstDateRange
+                                                                      .month,
+                                                                  CalendarConstant
+                                                                      .monthList);
+                                                          selectedMonthNumber =
+                                                              widget.firstDateRange
+                                                                  .month;
+                                                        } else if (selectedYearNumber ==
+                                                            widget.lastDateRange
+                                                                .year) {
+                                                          _selectedDateNotifier
+                                                              .value = Jalali(
+                                                            selectedYearNumber,
+                                                            widget.lastDateRange
+                                                                .month,
+                                                            10,
+                                                          );
+                                                          monthList =
+                                                              monthGenerator(1);
+                                                          // Filter the months to ensure it includes only up to lastDateRange.month
+                                                          monthList = monthList
+                                                              .where((month) =>
+                                                                  month.monthId <=
+                                                                  widget
+                                                                      .lastDateRange
+                                                                      .month)
+                                                              .toList();
+                                                          selectedMonthName =
+                                                              getMonthNameFromList(
+                                                            widget.lastDateRange
+                                                                .month,
+                                                            CalendarConstant
+                                                                .monthList,
+                                                          );
+                                                          selectedMonthNumber =
+                                                              widget.lastDateRange
+                                                                  .month;
+                                                        }
+
+                                                        isYearDropdownOpen =
+                                                            !isYearDropdownOpen;
+                                                        selectedYearName =
+                                                            yearList[index]
+                                                                .yearName
+                                                                .toString();
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 16.0),
+                                                      child: SizedBox(
+                                                        height: 25,
+                                                        child: Text(yearList[index]
+                                                            .yearName
+                                                            .toString()),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : const Align(
+                                                alignment: Alignment.topRight,
+                                                child: Text('لیست خالی است'),
+                                              ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                          AnimatedCrossFade(
-                            crossFadeState: isYearDropdownOpen
-                                ? CrossFadeState.showSecond
-                                : CrossFadeState.showFirst,
-                            duration: const Duration(milliseconds: 600),
-                            reverseDuration: Duration.zero,
-                            sizeCurve: Curves.fastLinearToSlowEaseIn,
-                            firstChild: Container(),
-                            secondChild: Column(
-                              children: [
-                                const Divider(
-                                  thickness: 1,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                SizedBox(
-                                  child: RawScrollbar(
-                                    controller: yearScrollController,
-                                    thumbVisibility: true,
-                                    interactive: false,
-                                    trackVisibility: false,
-                                    minThumbLength: 5,
-                                    radius: const Radius.circular(5),
-                                    thickness: 8.0,
-                                    child: yearList.isNotEmpty
-                                        ? SizedBox(
-                                            height: 200,
-                                            child: ListView.builder(
-                                              controller: yearScrollController,
-                                              physics:
-                                                  const BouncingScrollPhysics(),
-                                              itemCount: yearList.length,
-                                              itemBuilder: (context, index) =>
-                                                  GestureDetector(
-                                                onTap: () {
-                                                  selectedYearNumber =
-                                                      yearList[index].yearId;
-
-                                                  setState(() {
-                                                    if (selectedYearNumber !=
-                                                            widget
-                                                                .firstDateRange
-                                                                .year &&
-                                                        selectedYearNumber !=
-                                                            widget.lastDateRange
-                                                                .year) {
-                                                      if(monthLength() < 12){
-                                                        monthList =
-                                                            monthGenerator(1);
-                                                        _selectedDateNotifier
-                                                            .value =
-                                                            Jalali(
-                                                                selectedYearNumber,
-                                                                _selectedDateNotifier
-                                                                    .value.month,
-                                                                10);
-                                                      }
-
-                                                    } else if (selectedYearNumber ==
-                                                        widget.firstDateRange
-                                                            .year) {
-                                                      _selectedDateNotifier
-                                                              .value =
-                                                          Jalali(
-                                                              selectedYearNumber,
-                                                              widget
-                                                                  .firstDateRange
-                                                                  .month,
-                                                              10);
-                                                      monthList =
-                                                          monthGenerator(widget
-                                                              .firstDateRange
-                                                              .month);
-                                                      selectedMonthName =
-                                                          getMonthNameFromList(
-                                                              widget
-                                                                  .firstDateRange
-                                                                  .month,
-                                                              CalendarConstant
-                                                                  .monthList);
-                                                      selectedMonthNumber =
-                                                          widget.firstDateRange
-                                                              .month;
-                                                    } else if (selectedYearNumber ==
-                                                        widget.lastDateRange
-                                                            .year) {
-                                                      _selectedDateNotifier
-                                                          .value = Jalali(
-                                                        selectedYearNumber,
-                                                        widget.lastDateRange
-                                                            .month,
-                                                        10,
-                                                      );
-                                                      monthList =
-                                                          monthGenerator(1);
-                                                      // Filter the months to ensure it includes only up to lastDateRange.month
-                                                      monthList = monthList
-                                                          .where((month) =>
-                                                              month.monthId <=
-                                                              widget
-                                                                  .lastDateRange
-                                                                  .month)
-                                                          .toList();
-                                                      selectedMonthName =
-                                                          getMonthNameFromList(
-                                                        widget.lastDateRange
-                                                            .month,
-                                                        CalendarConstant
-                                                            .monthList,
-                                                      );
-                                                      selectedMonthNumber =
-                                                          widget.lastDateRange
-                                                              .month;
-                                                    }
-
-                                                    isYearDropdownOpen =
-                                                        !isYearDropdownOpen;
-                                                    selectedYearName =
-                                                        yearList[index]
-                                                            .yearName
-                                                            .toString();
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          bottom: 16.0),
-                                                  child: SizedBox(
-                                                    height: 25,
-                                                    child: Text(yearList[index]
-                                                        .yearName
-                                                        .toString()),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        : const Align(
-                                            alignment: Alignment.topRight,
-                                            child: Text('لیست خالی است'),
-                                          ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-        Positioned(
-          top: 0,
-          right: 20,
-          child: Container(
-              width: 28,
-              height: 22,
-              decoration: const BoxDecoration(color: Colors.white),
-              child: const Center(
-                child: Text(
-                  ' سال',
-                  style: TextStyle(color: Colors.black, fontSize: 13),
-                ),
-              )),
+            Positioned(
+              top: 0,
+              right: 20,
+              child: Container(
+                  width: 28,
+                  height: 22,
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: const Center(
+                    child: Text(
+                      ' سال',
+                      style: TextStyle(color: Colors.black, fontSize: 13),
+                    ),
+                  )),
+            ),
+          ],
         ),
       ],
     );
@@ -509,154 +513,158 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
 
   Widget monthSelection(
       {required Widget customArrowWidget, required int startMonth}) {
-    return Stack(
+    return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                isMonthDropdownOpen = !isMonthDropdownOpen;
-              });
-            },
-            child: Container(
-              width: 180,
-              color: Colors.white,
-              child: Stack(
-                children: [
-                  AnimatedContainer(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(
-                            width: 1, color: const Color(0xffE9E9E9))),
-                    curve: Curves.fastLinearToSlowEaseIn,
-                    duration: const Duration(milliseconds: 600),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 16),
-                      child: Column(
-                        children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(selectedMonthName),
-                                AnimatedCrossFade(
-                                  firstChild: SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: customArrowWidget),
-                                  secondChild: SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: RotatedBox(
-                                          quarterTurns: 2,
-                                          child: customArrowWidget)),
-                                  crossFadeState: isMonthDropdownOpen == true
-                                      ? CrossFadeState.showSecond
-                                      : CrossFadeState.showFirst,
-                                  duration: const Duration(milliseconds: 300),
-                                  secondCurve: Curves.easeIn,
-                                  sizeCurve: Curves.easeOut,
-                                ),
-                              ]),
-                          AnimatedCrossFade(
-                            crossFadeState: isMonthDropdownOpen
-                                ? CrossFadeState.showSecond
-                                : CrossFadeState.showFirst,
-                            duration: const Duration(milliseconds: 600),
-                            reverseDuration: Duration.zero,
-                            sizeCurve: Curves.fastLinearToSlowEaseIn,
-                            firstChild: Container(),
-                            secondChild: Column(
-                              children: [
-                                const Divider(
-                                  thickness: 1,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                SizedBox(
-                                  child: RawScrollbar(
-                                    controller: monthScrollController,
-                                    thumbVisibility: true,
-                                    interactive: false,
-                                    trackVisibility: false,
-                                    minThumbLength: 5,
-                                    radius: const Radius.circular(5),
-                                    thickness: 8.0,
-                                    child: CalendarConstant.monthList.isNotEmpty
-                                        ? SizedBox(
-                                            height: 200,
-                                            child: ListView.builder(
-                                              controller: monthScrollController,
-                                              physics:
-                                                  const BouncingScrollPhysics(),
-                                              shrinkWrap: false,
-                                              itemCount: monthList.length,
-                                              itemBuilder: (context, index) =>
-                                                  GestureDetector(
-                                                onTap: () {
-                                                  selectedMonthNumber =
-                                                      monthList[index].monthId;
-                                                  _selectedDateNotifier.value =
-                                                      Jalali(
-                                                          selectedYearNumber,
-                                                          monthList[index]
-                                                              .monthId,
-                                                          10);
-                                                  setState(() {
-                                                    isMonthDropdownOpen =
-                                                        !isMonthDropdownOpen;
-                                                    selectedMonthName =
-                                                        monthList[index]
-                                                            .monthName;
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          bottom: 16.0),
-                                                  child: SizedBox(
-                                                    height: 25,
-                                                    child: Text(monthList[index]
-                                                        .monthName
-                                                        .toString()),
+        Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isMonthDropdownOpen = !isMonthDropdownOpen;
+                  });
+                },
+                child: Container(
+                  width: 160,
+                  color: Colors.white,
+                  child: Stack(
+                    children: [
+                      AnimatedContainer(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(
+                                width: 1, color: const Color(0xffE9E9E9))),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        duration: const Duration(milliseconds: 600),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 16),
+                          child: Column(
+                            children: [
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(selectedMonthName),
+                                    AnimatedCrossFade(
+                                      firstChild: SizedBox(
+                                          width: 24,
+                                          height: 24,
+                                          child: customArrowWidget),
+                                      secondChild: SizedBox(
+                                          width: 24,
+                                          height: 24,
+                                          child: RotatedBox(
+                                              quarterTurns: 2,
+                                              child: customArrowWidget)),
+                                      crossFadeState: isMonthDropdownOpen == true
+                                          ? CrossFadeState.showSecond
+                                          : CrossFadeState.showFirst,
+                                      duration: const Duration(milliseconds: 300),
+                                      secondCurve: Curves.easeIn,
+                                      sizeCurve: Curves.easeOut,
+                                    ),
+                                  ]),
+                              AnimatedCrossFade(
+                                crossFadeState: isMonthDropdownOpen
+                                    ? CrossFadeState.showSecond
+                                    : CrossFadeState.showFirst,
+                                duration: const Duration(milliseconds: 600),
+                                reverseDuration: Duration.zero,
+                                sizeCurve: Curves.fastLinearToSlowEaseIn,
+                                firstChild: Container(),
+                                secondChild: Column(
+                                  children: [
+                                    const Divider(
+                                      thickness: 1,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    SizedBox(
+                                      child: RawScrollbar(
+                                        controller: monthScrollController,
+                                        thumbVisibility: true,
+                                        interactive: false,
+                                        trackVisibility: false,
+                                        minThumbLength: 5,
+                                        radius: const Radius.circular(5),
+                                        thickness: 8.0,
+                                        child: CalendarConstant.monthList.isNotEmpty
+                                            ? SizedBox(
+                                                height: 200,
+                                                child: ListView.builder(
+                                                  controller: monthScrollController,
+                                                  physics:
+                                                      const BouncingScrollPhysics(),
+                                                  shrinkWrap: false,
+                                                  itemCount: monthList.length,
+                                                  itemBuilder: (context, index) =>
+                                                      GestureDetector(
+                                                    onTap: () {
+                                                      selectedMonthNumber =
+                                                          monthList[index].monthId;
+                                                      _selectedDateNotifier.value =
+                                                          Jalali(
+                                                              selectedYearNumber,
+                                                              monthList[index]
+                                                                  .monthId,
+                                                              10);
+                                                      setState(() {
+                                                        isMonthDropdownOpen =
+                                                            !isMonthDropdownOpen;
+                                                        selectedMonthName =
+                                                            monthList[index]
+                                                                .monthName;
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 16.0),
+                                                      child: SizedBox(
+                                                        height: 25,
+                                                        child: Text(monthList[index]
+                                                            .monthName
+                                                            .toString()),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
+                                              )
+                                            : const Align(
+                                                alignment: Alignment.topRight,
+                                                child: Text('نتیجه ای یافت نشد'),
                                               ),
-                                            ),
-                                          )
-                                        : const Align(
-                                            alignment: Alignment.topRight,
-                                            child: Text('نتیجه ای یافت نشد'),
-                                          ),
-                                  ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-        Positioned(
-          top: 0,
-          right: 20,
-          child: Container(
-            width: 25,
-            height: 18,
-            decoration: const BoxDecoration(color: Colors.white),
-            child: const Text(' ماه',
-                style: TextStyle(color: Colors.black, fontSize: 13)),
-          ),
+            Positioned(
+              top: 0,
+              right: 20,
+              child: Container(
+                width: 25,
+                height: 18,
+                decoration: const BoxDecoration(color: Colors.white),
+                child: const Text(' ماه',
+                    style: TextStyle(color: Colors.black, fontSize: 13)),
+              ),
+            ),
+          ],
         ),
       ],
     );

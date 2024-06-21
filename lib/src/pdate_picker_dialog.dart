@@ -101,6 +101,8 @@ Future<Jalali?> showPersianDatePicker({
   required Color selectedDayColor,
   required Color selectedDayBackground,
   required Color todayColor,
+  required Color footerIconColor,
+  required TextStyle footerTextStyle,
 }) async {
   initialDate = utils.dateOnly(initialDate);
   firstDate = utils.dateOnly(firstDate);
@@ -133,7 +135,7 @@ Future<Jalali?> showPersianDatePicker({
     disabledDayColor: disabledDayColor,
     selectedDayColor: selectedDayColor,
     selectedDayBackground: selectedDayBackground,
-    todayColor: todayColor,
+    todayColor: todayColor, footerIconColor: footerIconColor, footerTextStyle: footerTextStyle,
   );
 
   if (textDirection != null) {
@@ -181,7 +183,7 @@ class _DatePickerDialog extends StatefulWidget {
     required this.disabledDayColor,
     required this.selectedDayColor,
     required this.selectedDayBackground,
-    required this.todayColor,
+    required this.todayColor, required this.footerIconColor, required this.footerTextStyle,
   })  : initialDate = utils.dateOnly(initialDate),
         firstDate = utils.dateOnly(firstDate),
         lastDate = utils.dateOnly(lastDate),
@@ -244,6 +246,9 @@ class _DatePickerDialog extends StatefulWidget {
 
   final Color todayColor;
 
+  final Color footerIconColor;
+
+  final TextStyle footerTextStyle;
   @override
   _DatePickerDialogState createState() => _DatePickerDialogState();
 }
@@ -378,7 +383,7 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
         disabledDayColor: widget.disabledDayColor,
         selectedDayColor: widget.selectedDayColor,
         selectedDayBackground: widget.selectedDayBackground,
-        todayColor: widget.todayColor,
+        todayColor: widget.todayColor, footerIconColor: widget.footerIconColor, footerTextStyle: widget.footerTextStyle,
       );
     }
 

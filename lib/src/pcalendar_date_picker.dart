@@ -85,7 +85,7 @@ class PCalendarDatePicker extends StatefulWidget {
     required this.disabledDayColor,
     required this.selectedDayColor,
     required this.selectedDayBackground,
-    required this.todayColor,
+    required this.todayColor, required this.footerIconColor, required this.footerTextStyle,
   })  : initialDate = utils.dateOnly(initialDate),
         firstDate = utils.dateOnly(firstDate),
         lastDate = utils.dateOnly(lastDate),
@@ -139,6 +139,8 @@ class PCalendarDatePicker extends StatefulWidget {
   final Color selectedDayColor;
   final Color selectedDayBackground;
   final Color todayColor;
+  final Color footerIconColor;
+  final TextStyle footerTextStyle;
 
   @override
   State<PCalendarDatePicker> createState() => _CalendarDatePickerState();
@@ -258,7 +260,7 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
           disabledDayColor: widget.disabledDayColor,
           selectedDayColor: widget.selectedDayColor,
           selectedDayBackground: widget.selectedDayBackground,
-          todayColor: widget.todayColor,
+          todayColor: widget.todayColor, footerIconColor: widget.footerIconColor, footerTextStyle: widget.footerTextStyle,
         );
       // case PDatePickerMode.year:
       //   return Padding(
@@ -439,7 +441,7 @@ class _MonthPicker extends StatefulWidget {
     required this.disabledDayColor,
     required this.selectedDayColor,
     required this.selectedDayBackground,
-    required this.todayColor,
+    required this.todayColor, required this.footerIconColor, required this.footerTextStyle,
   })  : assert(!firstDate.isAfter(lastDate)),
         assert(!selectedDate.isBefore(firstDate)),
         assert(!selectedDate.isAfter(lastDate)),
@@ -482,6 +484,8 @@ class _MonthPicker extends StatefulWidget {
   final Color selectedDayColor;
   final Color selectedDayBackground;
   final Color todayColor;
+  final Color footerIconColor;
+  final TextStyle footerTextStyle;
 
   @override
   State<StatefulWidget> createState() => _MonthPickerState();
@@ -620,9 +624,9 @@ class _MonthPickerState extends State<_MonthPicker> {
                 children: [
                   //samim custom icon
                   IconButton(
-                    icon: const Icon(
+                    icon:  Icon(
                       Icons.chevron_left,
-                      color: Color(0xff42A670),
+                      color: widget.footerIconColor,
                       size: 12,
                     ),
                     color: controlColor,
@@ -638,9 +642,9 @@ class _MonthPickerState extends State<_MonthPicker> {
                         _handlePreviousMonth();
                       }
                     },
-                    child: const Text(
+                    child:  Text(
                       'ماه قبل',
-                      style: TextStyle(fontSize: 12, color: Color(0xff42A670)),
+                      style: widget.footerTextStyle,
                     ),
                   ),
                 ],
@@ -653,15 +657,15 @@ class _MonthPickerState extends State<_MonthPicker> {
                         _handleNextMonth();
                       }
                     },
-                    child: const Text(
+                    child:  Text(
                       'ماه بعد',
-                      style: TextStyle(fontSize: 12, color: Color(0xff42A670)),
+                      style: widget.footerTextStyle,
                     ),
                   ),
                   IconButton(
                     hoverColor: Colors.white,
-                    icon: const Icon(Icons.chevron_right,
-                        color: Color(0xff42A670), size: 12),
+                    icon:  Icon(Icons.chevron_right,
+                        color: widget.footerIconColor, size: 12),
                     color: controlColor,
                     tooltip: _isDisplayingLastMonth ? null : nextTooltipText,
                     onPressed: _isDisplayingLastMonth ? null : _handleNextMonth,
