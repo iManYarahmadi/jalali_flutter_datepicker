@@ -102,7 +102,26 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
   @override
   void initState() {
     super.initState();
-    _selectedDateNotifier = ValueNotifier<Jalali>(widget.initialDate);
+  
+    // Initialize the month list based on the initial date
+    if (widget.initialDate != null) {
+      _selectedDateNotifier =  ValueNotifier<Jalali>(widget.initialDate);
+      selectedYearNumber = widget.initialDate.year;
+      if (selectedYearNumber == widget.firstDateRange.year) {
+        monthList = monthGenerator(widget.firstDateRange.month);
+      } else if (selectedYearNumber == widget.lastDateRange.year) {
+        monthList = monthGenerator(1)
+            .where((month) => month.monthId <= widget.lastDateRange.month)
+            .toList();
+      } else {
+        monthList = monthGenerator(1);
+      }
+    } else {
+      // Fallback in case initial date is not provided
+      _selectedDateNotifier = ValueNotifier<Jalali>(Jalali.now());
+      selectedYearNumber = _selectedDateNotifier.value.year;
+      monthList = monthGenerator(1);
+    }
   }
 
   @override
