@@ -18,32 +18,29 @@ class JalaliHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              JalaliFlutterDatePicker(
-                onDateChanged: (value) {},
-                initialDate: Jalali(1350, 3, 2),
-                firstDateRange: Jalali(1340, 3, 1),
-                lastDateRange: Jalali(1360, 8, 29),
-                disabledDayColor: Colors.grey,
-                enabledDayColor: Colors.black,
-                selectedDayBackground: const Color(0xffFD9404),
-                selectedDayColor: Colors.white,
-                todayColor: const Color(0xffFD9404),
-                footerIconColor: const Color(0xffFD9404),
-                footerTextStyle:
-                    const TextStyle(color: Color(0xffFD9404), fontSize: 12),
-                headerTextStyle: const TextStyle(color: Color(0xffFD9404)),
-              ),
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            JalaliFlutterDatePicker(
+              onDateChanged: (value) {},
+              initialDate: Jalali(1350, 3, 2),
+              firstDateRange: Jalali(1340, 3, 1),
+              lastDateRange: Jalali(1360, 8, 29),
+              disabledDayColor: Colors.grey,
+              enabledDayColor: Colors.black,
+              selectedDayBackground: const Color(0xffFD9404),
+              selectedDayColor: Colors.white,
+              todayColor: const Color(0xffFD9404),
+              footerIconColor: const Color(0xffFD9404),
+              footerTextStyle:
+                  const TextStyle(color: Color(0xffFD9404), fontSize: 12),
+              headerTextStyle: const TextStyle(color: Color(0xffFD9404)),
+            ),
+          ],
         ),
       ),
     );

@@ -139,153 +139,156 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomErrorHandler(
-      child: ValueListenableBuilder<Jalali>(
-        valueListenable: _selectedDateNotifier,
-        builder: (context, selectedDate, _) {
-          return Expanded(
-            child: Center(
-              child: Container(
-                height: 430,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    width: 1,
-                    color: const Color(0xffE9E9E9),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: CustomErrorHandler(
+        child: ValueListenableBuilder<Jalali>(
+          valueListenable: _selectedDateNotifier,
+          builder: (context, selectedDate, _) {
+            return Expanded(
+              child: Center(
+                child: Container(
+                  height: 430,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      width: 1,
+                      color: const Color(0xffE9E9E9),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 85),
-                            child: SizedBox(
-                              child: Column(
-                                children: [
-                                  CalendarHeaders(
-                                    textStyle: widget.headerTextStyle!,
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  PCalendarDatePicker(
-                                    onDisplayedMonthChanged: (value) {
-                                      // Update the selected year name and number
-                                      selectedYearName = value!.year.toString();
-                                      selectedYearNumber = value.year;
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 85),
+                              child: SizedBox(
+                                child: Column(
+                                  children: [
+                                    CalendarHeaders(
+                                      textStyle: widget.headerTextStyle!,
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    PCalendarDatePicker(
+                                      onDisplayedMonthChanged: (value) {
+                                        // Update the selected year name and number
+                                        selectedYearName = value!.year.toString();
+                                        selectedYearNumber = value.year;
 
-                                      // Update the selected date notifier value
-                                      _selectedDateNotifier.value = value;
+                                        // Update the selected date notifier value
+                                        _selectedDateNotifier.value = value;
 
-                                      switch (selectedYearNumber) {
-                                        case var year
-                                            when year ==
-                                                widget.firstDateRange.year:
-                                          // Case: Selected year is the first year in the range
-                                          setState(() {
-                                            // Generate month list starting from the first valid month
-                                            monthList = monthGenerator(
-                                                widget.firstDateRange.month);
-                                          });
-                                          // Calculate the month index based on the first valid month
-                                          int monthIndex = value.month -
-                                              widget.firstDateRange.month;
-                                          // Set the selected month name based on the month index
-                                          selectedMonthName =
-                                              monthList[monthIndex].monthName;
-                                          break;
+                                        switch (selectedYearNumber) {
+                                          case var year
+                                              when year ==
+                                                  widget.firstDateRange.year:
+                                            // Case: Selected year is the first year in the range
+                                            setState(() {
+                                              // Generate month list starting from the first valid month
+                                              monthList = monthGenerator(
+                                                  widget.firstDateRange.month);
+                                            });
+                                            // Calculate the month index based on the first valid month
+                                            int monthIndex = value.month -
+                                                widget.firstDateRange.month;
+                                            // Set the selected month name based on the month index
+                                            selectedMonthName =
+                                                monthList[monthIndex].monthName;
+                                            break;
 
-                                        case var year
-                                            when year ==
-                                                widget.lastDateRange.year:
-                                          // Case: Selected year is the last year in the range
-                                          setState(() {
-                                            // Generate month list starting from January (1)
-                                            monthList = monthGenerator(1);
-                                            // Filter the months to include only up to the last valid month
-                                            monthList = monthList
-                                                .where((month) =>
-                                                    month.monthId <=
-                                                    widget.lastDateRange.month)
-                                                .toList();
-                                          });
-                                          // Calculate the month index for the last year
-                                          int monthIndex = value.month - 1;
-                                          // Set the selected month name based on the month index
-                                          selectedMonthName =
-                                              monthList[monthIndex].monthName;
-                                          break;
-
-                                        default:
-                                          // Case: Selected year is neither the first nor the last in the range
-                                          if (monthLength() < 12) {
+                                          case var year
+                                              when year ==
+                                                  widget.lastDateRange.year:
+                                            // Case: Selected year is the last year in the range
                                             setState(() {
                                               // Generate month list starting from January (1)
-
                                               monthList = monthGenerator(1);
+                                              // Filter the months to include only up to the last valid month
+                                              monthList = monthList
+                                                  .where((month) =>
+                                                      month.monthId <=
+                                                      widget.lastDateRange.month)
+                                                  .toList();
                                             });
-                                          }
+                                            // Calculate the month index for the last year
+                                            int monthIndex = value.month - 1;
+                                            // Set the selected month name based on the month index
+                                            selectedMonthName =
+                                                monthList[monthIndex].monthName;
+                                            break;
 
-                                          // Set the selected month name based on the current month
-                                          selectedMonthName =
-                                              monthList[value.month - 1]
-                                                  .monthName;
-                                          break;
-                                      }
-                                    },
-                                    key: UniqueKey(),
-                                    initialDate: selectedDate,
-                                    firstDate: widget.firstDateRange,
-                                    lastDate: widget.lastDateRange,
-                                    enabledDayColor: widget.enabledDayColor!,
-                                    onDateChanged: (date) {
-                                      _selectedDateNotifier.value = date!;
-                                      // Call the onDateSelected callback passed from the constructor
-                                      widget.onDateChanged(date);
-                                    },
-                                    initialCalendarMode: PDatePickerMode.day,
-                                    disabledDayColor: widget.disabledDayColor!,
-                                    selectedDayColor: widget.selectedDayColor!,
-                                    selectedDayBackground:
-                                        widget.selectedDayBackground!,
-                                    todayColor: widget.todayColor!,
-                                    footerIconColor: widget.footerIconColor!,
-                                    footerTextStyle: widget.footerTextStyle!,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: monthSelection(
-                                    customArrowWidget: widget.customArrowWidget,
-                                    startMonth: widget.firstDateRange.month),
-                              ),
-                              Expanded(
-                                child: yearSelection(
-                                  customArrowWidget: widget.customArrowWidget,
-                                  widget.firstDateRange.year,
-                                  widget.lastDateRange.year,
+                                          default:
+                                            // Case: Selected year is neither the first nor the last in the range
+                                            if (monthLength() < 12) {
+                                              setState(() {
+                                                // Generate month list starting from January (1)
+
+                                                monthList = monthGenerator(1);
+                                              });
+                                            }
+
+                                            // Set the selected month name based on the current month
+                                            selectedMonthName =
+                                                monthList[value.month - 1]
+                                                    .monthName;
+                                            break;
+                                        }
+                                      },
+                                      key: UniqueKey(),
+                                      initialDate: selectedDate,
+                                      firstDate: widget.firstDateRange,
+                                      lastDate: widget.lastDateRange,
+                                      enabledDayColor: widget.enabledDayColor!,
+                                      onDateChanged: (date) {
+                                        _selectedDateNotifier.value = date!;
+                                        // Call the onDateSelected callback passed from the constructor
+                                        widget.onDateChanged(date);
+                                      },
+                                      initialCalendarMode: PDatePickerMode.day,
+                                      disabledDayColor: widget.disabledDayColor!,
+                                      selectedDayColor: widget.selectedDayColor!,
+                                      selectedDayBackground:
+                                          widget.selectedDayBackground!,
+                                      todayColor: widget.todayColor!,
+                                      footerIconColor: widget.footerIconColor!,
+                                      footerTextStyle: widget.footerTextStyle!,
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: monthSelection(
+                                      customArrowWidget: widget.customArrowWidget,
+                                      startMonth: widget.firstDateRange.month),
+                                ),
+                                Expanded(
+                                  child: yearSelection(
+                                    customArrowWidget: widget.customArrowWidget,
+                                    widget.firstDateRange.year,
+                                    widget.lastDateRange.year,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
