@@ -1,3 +1,6 @@
 ## 1.0.0
+- First Release
 
-* TODO: Describe initial release.
+## 1.0.1
+- Fix Directionality
+

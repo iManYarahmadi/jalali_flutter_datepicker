@@ -176,7 +176,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                     PCalendarDatePicker(
                                       onDisplayedMonthChanged: (value) {
                                         // Update the selected year name and number
-                                        selectedYearName = value!.year.toString();
+                                        selectedYearName =
+                                            value!.year.toString();
                                         selectedYearNumber = value.year;
 
                                         // Update the selected date notifier value
@@ -211,7 +212,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                               monthList = monthList
                                                   .where((month) =>
                                                       month.monthId <=
-                                                      widget.lastDateRange.month)
+                                                      widget
+                                                          .lastDateRange.month)
                                                   .toList();
                                             });
                                             // Calculate the month index for the last year
@@ -249,8 +251,10 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                         widget.onDateChanged(date);
                                       },
                                       initialCalendarMode: PDatePickerMode.day,
-                                      disabledDayColor: widget.disabledDayColor!,
-                                      selectedDayColor: widget.selectedDayColor!,
+                                      disabledDayColor:
+                                          widget.disabledDayColor!,
+                                      selectedDayColor:
+                                          widget.selectedDayColor!,
                                       selectedDayBackground:
                                           widget.selectedDayBackground!,
                                       todayColor: widget.todayColor!,
@@ -267,7 +271,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                               children: [
                                 Expanded(
                                   child: monthSelection(
-                                      customArrowWidget: widget.customArrowWidget,
+                                      customArrowWidget:
+                                          widget.customArrowWidget,
                                       startMonth: widget.firstDateRange.month),
                                 ),
                                 Expanded(
