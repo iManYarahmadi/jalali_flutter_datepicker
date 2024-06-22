@@ -135,7 +135,9 @@ Future<Jalali?> showPersianDatePicker({
     disabledDayColor: disabledDayColor,
     selectedDayColor: selectedDayColor,
     selectedDayBackground: selectedDayBackground,
-    todayColor: todayColor, footerIconColor: footerIconColor, footerTextStyle: footerTextStyle,
+    todayColor: todayColor,
+    footerIconColor: footerIconColor,
+    footerTextStyle: footerTextStyle,
   );
 
   if (textDirection != null) {
@@ -183,7 +185,9 @@ class _DatePickerDialog extends StatefulWidget {
     required this.disabledDayColor,
     required this.selectedDayColor,
     required this.selectedDayBackground,
-    required this.todayColor, required this.footerIconColor, required this.footerTextStyle,
+    required this.todayColor,
+    required this.footerIconColor,
+    required this.footerTextStyle,
   })  : initialDate = utils.dateOnly(initialDate),
         firstDate = utils.dateOnly(firstDate),
         lastDate = utils.dateOnly(lastDate),
@@ -383,7 +387,9 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
         disabledDayColor: widget.disabledDayColor,
         selectedDayColor: widget.selectedDayColor,
         selectedDayBackground: widget.selectedDayBackground,
-        todayColor: widget.todayColor, footerIconColor: widget.footerIconColor, footerTextStyle: widget.footerTextStyle,
+        todayColor: widget.todayColor,
+        footerIconColor: widget.footerIconColor,
+        footerTextStyle: widget.footerTextStyle,
       );
     }
 

@@ -42,10 +42,13 @@ const ShapeBorder _kDefaultShape =
 enum PTimePickerEntryMode {
   /// Tapping/dragging on a clock dial.
   dial,
+
   /// Tapping/dragging on a clock dial only.
   dialOnly,
+
   /// Text input.
   input,
+
   /// Text input only.
   inputOnly,
 }
@@ -1832,9 +1835,9 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
         case PTimePickerEntryMode.dialOnly:
         case PTimePickerEntryMode.inputOnly:
           FlutterError('Can not change entry mode from $_entryMode');
-        break;
+          break;
         case null:
-          // TODO: Handle this case.
+        // TODO: Handle this case.
       }
     });
   }
@@ -1892,7 +1895,8 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
   }
 
   void _handleOk() {
-    if (_entryMode == PTimePickerEntryMode.input || _entryMode == PTimePickerEntryMode.inputOnly) {
+    if (_entryMode == PTimePickerEntryMode.input ||
+        _entryMode == PTimePickerEntryMode.inputOnly) {
       final FormState form = _formKey.currentState!;
       if (!form.validate()) {
         setState(() {
@@ -1942,7 +1946,7 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
         timePickerHeight = _kTimePickerHeightInput;
         break;
       case null:
-        // TODO: Handle this case.
+      // TODO: Handle this case.
     }
     return Size(timePickerWidth, timePickerHeight * textScaleFactor);
   }
@@ -1968,10 +1972,12 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
                 theme.colorScheme.brightness == Brightness.dark ? 1.0 : 0.6,
               ),
           onPressed: _handleEntryModeToggle,
-          icon: _entryMode == PTimePickerEntryMode.dialOnly || _entryMode == PTimePickerEntryMode.dialOnly ? const Icon(null) :
-              Icon(_entryMode == PTimePickerEntryMode.dial
-              ? Icons.keyboard
-              : Icons.access_time),
+          icon: _entryMode == PTimePickerEntryMode.dialOnly ||
+                  _entryMode == PTimePickerEntryMode.dialOnly
+              ? const Icon(null)
+              : Icon(_entryMode == PTimePickerEntryMode.dial
+                  ? Icons.keyboard
+                  : Icons.access_time),
           tooltip: _entryMode == PTimePickerEntryMode.dial
               ? MaterialLocalizations.of(context).inputTimeModeButtonLabel
               : MaterialLocalizations.of(context).dialModeButtonLabel,
@@ -2102,7 +2108,10 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
           theme.colorScheme.surface,
       insetPadding: EdgeInsets.symmetric(
         horizontal: 16.0,
-        vertical: _entryMode == PTimePickerEntryMode.input || _entryMode == PTimePickerEntryMode.inputOnly ? 0.0 : 24.0,
+        vertical: _entryMode == PTimePickerEntryMode.input ||
+                _entryMode == PTimePickerEntryMode.inputOnly
+            ? 0.0
+            : 24.0,
       ),
       child: AnimatedContainer(
         width: dialogSize.width,

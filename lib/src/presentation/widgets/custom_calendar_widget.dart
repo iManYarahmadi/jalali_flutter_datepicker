@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'package:jalali_flutter_datepicker/jalali_flutter_datepicker.dart';
 import 'package:jalali_flutter_datepicker/src/presentation/methods/month_generator.dart';
 
@@ -55,6 +56,7 @@ class JalaliFlutterDatePicker extends StatefulWidget {
   final Color? todayColor;
   final Color? footerIconColor;
   final TextStyle? footerTextStyle;
+  final TextStyle? headerTextStyle;
 
   JalaliFlutterDatePicker({
     super.key,
@@ -70,11 +72,21 @@ class JalaliFlutterDatePicker extends StatefulWidget {
     this.todayColor = Colors.green,
     this.footerIconColor = Colors.green,
     TextStyle? footerTextStyle,
-  }) : footerTextStyle = footerTextStyle ?? const TextStyle(color: Colors.green, fontSize: 12);
+    TextStyle? headerTextStyle,
+  })  : footerTextStyle = footerTextStyle ??
+            const TextStyle(color: Colors.green, fontSize: 12),
+        headerTextStyle = headerTextStyle ??
+            const TextStyle(
+              color: Colors.black,
+              fontSize: 12,
+              overflow: TextOverflow.ellipsis,
+            );
 
   @override
-  _JalaliFlutterDatePickerState createState() => _JalaliFlutterDatePickerState();
+  _JalaliFlutterDatePickerState createState() =>
+      _JalaliFlutterDatePickerState();
 }
+
 class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
   late ValueNotifier<Jalali> _selectedDateNotifier;
 
@@ -95,7 +107,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
   final monthScrollController = ScrollController();
   final yearScrollController = ScrollController();
   late List<MonthModel> monthList = monthGenerator(widget.firstDateRange.month);
-  int monthLength(){
+
+  int monthLength() {
     return monthList.length;
   }
 
@@ -105,7 +118,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
 
     // Initialize the month list based on the initial date
     if (widget.initialDate != null) {
-      _selectedDateNotifier =  ValueNotifier<Jalali>(widget.initialDate);
+      _selectedDateNotifier = ValueNotifier<Jalali>(widget.initialDate);
       selectedYearNumber = widget.initialDate.year;
       if (selectedYearNumber == widget.firstDateRange.year) {
         monthList = monthGenerator(widget.firstDateRange.month);
@@ -130,32 +143,31 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
       child: ValueListenableBuilder<Jalali>(
         valueListenable: _selectedDateNotifier,
         builder: (context, selectedDate, _) {
-          return Center(
-            child: Container(
-              width: 315,
-              height: 430,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  width: 1,
-                  color: const Color(0xffE9E9E9),
+          return Expanded(
+            child: Center(
+              child: Container(
+                height: 430,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 1,
+                    color: const Color(0xffE9E9E9),
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 85),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 85),
                             child: SizedBox(
-                              width: 290,
                               child: Column(
                                 children: [
-                                  const CalendarHeaders(),
+                                  CalendarHeaders(
+                                    textStyle: widget.headerTextStyle!,
+                                  ),
                                   const SizedBox(
                                     height: 8,
                                   ),
@@ -168,50 +180,61 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                       // Update the selected date notifier value
                                       _selectedDateNotifier.value = value;
 
-
                                       switch (selectedYearNumber) {
-                                        case var year when year == widget.firstDateRange.year:
-                                      // Case: Selected year is the first year in the range
-                                      setState(() {
-                                      // Generate month list starting from the first valid month
-                                      monthList = monthGenerator(widget.firstDateRange.month);
-                                      });
-                                      // Calculate the month index based on the first valid month
-                                      int monthIndex = value.month - widget.firstDateRange.month;
-                                      // Set the selected month name based on the month index
-                                      selectedMonthName = monthList[monthIndex].monthName;
-                                      break;
+                                        case var year
+                                            when year ==
+                                                widget.firstDateRange.year:
+                                          // Case: Selected year is the first year in the range
+                                          setState(() {
+                                            // Generate month list starting from the first valid month
+                                            monthList = monthGenerator(
+                                                widget.firstDateRange.month);
+                                          });
+                                          // Calculate the month index based on the first valid month
+                                          int monthIndex = value.month -
+                                              widget.firstDateRange.month;
+                                          // Set the selected month name based on the month index
+                                          selectedMonthName =
+                                              monthList[monthIndex].monthName;
+                                          break;
 
-                                      case var year when year == widget.lastDateRange.year:
-                                      // Case: Selected year is the last year in the range
-                                      setState(() {
-                                      // Generate month list starting from January (1)
-                                      monthList = monthGenerator(1);
-                                      // Filter the months to include only up to the last valid month
-                                      monthList = monthList.where((month) => month.monthId <= widget.lastDateRange.month).toList();
-                                      });
-                                      // Calculate the month index for the last year
-                                      int monthIndex = value.month - 1;
-                                      // Set the selected month name based on the month index
-                                      selectedMonthName = monthList[monthIndex].monthName;
-                                      break;
+                                        case var year
+                                            when year ==
+                                                widget.lastDateRange.year:
+                                          // Case: Selected year is the last year in the range
+                                          setState(() {
+                                            // Generate month list starting from January (1)
+                                            monthList = monthGenerator(1);
+                                            // Filter the months to include only up to the last valid month
+                                            monthList = monthList
+                                                .where((month) =>
+                                                    month.monthId <=
+                                                    widget.lastDateRange.month)
+                                                .toList();
+                                          });
+                                          // Calculate the month index for the last year
+                                          int monthIndex = value.month - 1;
+                                          // Set the selected month name based on the month index
+                                          selectedMonthName =
+                                              monthList[monthIndex].monthName;
+                                          break;
 
-                                      default:
-                                      // Case: Selected year is neither the first nor the last in the range
-                                      if(monthLength() < 12){
-                                      setState(() {
-                                      // Generate month list starting from January (1)
+                                        default:
+                                          // Case: Selected year is neither the first nor the last in the range
+                                          if (monthLength() < 12) {
+                                            setState(() {
+                                              // Generate month list starting from January (1)
 
-                                      monthList = monthGenerator(1);
-                                      });
+                                              monthList = monthGenerator(1);
+                                            });
+                                          }
+
+                                          // Set the selected month name based on the current month
+                                          selectedMonthName =
+                                              monthList[value.month - 1]
+                                                  .monthName;
+                                          break;
                                       }
-
-                                      // Set the selected month name based on the current month
-                                      selectedMonthName = monthList[value.month - 1].monthName;
-                                      break;
-                                    }
-
-
                                     },
                                     key: UniqueKey(),
                                     initialDate: selectedDate,
@@ -228,30 +251,36 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                     selectedDayColor: widget.selectedDayColor!,
                                     selectedDayBackground:
                                         widget.selectedDayBackground!,
-                                    todayColor: widget.todayColor!, footerIconColor: widget.footerIconColor!, footerTextStyle: widget.footerTextStyle!,
+                                    todayColor: widget.todayColor!,
+                                    footerIconColor: widget.footerIconColor!,
+                                    footerTextStyle: widget.footerTextStyle!,
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            monthSelection(
-                                customArrowWidget: widget.customArrowWidget,
-                                startMonth: widget.firstDateRange.month),
-                            yearSelection(
-                              customArrowWidget: widget.customArrowWidget,
-                              widget.firstDateRange.year,
-                              widget.lastDateRange.year,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: monthSelection(
+                                    customArrowWidget: widget.customArrowWidget,
+                                    startMonth: widget.firstDateRange.month),
+                              ),
+                              Expanded(
+                                child: yearSelection(
+                                  customArrowWidget: widget.customArrowWidget,
+                                  widget.firstDateRange.year,
+                                  widget.lastDateRange.year,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -277,11 +306,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                   });
                 },
                 child: Container(
-                  width: 100,
                   color: Colors.white,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AnimatedContainer(
                         decoration: BoxDecoration(
@@ -295,43 +321,33 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                               vertical: 14, horizontal: 16),
                           child: Column(
                             children: [
-                              Column(
-                                children: [
-                                  Column(
-                                    children: [
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(selectedYearName),
-                                            AnimatedCrossFade(
-                                              firstChild: SizedBox(
-                                                  height: 24,
-                                                  width: 24,
-                                                  child: customArrowWidget),
-                                              secondChild: RotatedBox(
-                                                quarterTurns: 2,
-                                                child: SizedBox(
-                                                    height: 24,
-                                                    width: 24,
-                                                    child: customArrowWidget),
-                                              ),
-                                              crossFadeState:
-                                                  isYearDropdownOpen == true
-                                                      ? CrossFadeState.showSecond
-                                                      : CrossFadeState.showFirst,
-                                              duration:
-                                                  const Duration(milliseconds: 300),
-                                              secondCurve: Curves.easeIn,
-                                              sizeCurve: Curves.easeOut,
-                                            ),
-                                          ]),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(selectedYearName),
+                                    AnimatedCrossFade(
+                                      firstChild: SizedBox(
+                                          height: 24,
+                                          width: 24,
+                                          child: customArrowWidget),
+                                      secondChild: RotatedBox(
+                                        quarterTurns: 2,
+                                        child: SizedBox(
+                                            height: 24,
+                                            width: 24,
+                                            child: customArrowWidget),
+                                      ),
+                                      crossFadeState: isYearDropdownOpen == true
+                                          ? CrossFadeState.showSecond
+                                          : CrossFadeState.showFirst,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      secondCurve: Curves.easeIn,
+                                      sizeCurve: Curves.easeOut,
+                                    ),
+                                  ]),
                               AnimatedCrossFade(
                                 crossFadeState: isYearDropdownOpen
                                     ? CrossFadeState.showSecond
@@ -350,6 +366,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                     ),
                                     SizedBox(
                                       child: RawScrollbar(
+                                        padding: EdgeInsets.zero,
                                         controller: yearScrollController,
                                         thumbVisibility: true,
                                         interactive: false,
@@ -361,39 +378,49 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                             ? SizedBox(
                                                 height: 200,
                                                 child: ListView.builder(
-                                                  controller: yearScrollController,
-                                                  physics:
-                                                      const BouncingScrollPhysics(),
+                                                  controller:
+                                                      yearScrollController,
                                                   itemCount: yearList.length,
-                                                  itemBuilder: (context, index) =>
-                                                      GestureDetector(
+                                                  padding: EdgeInsets.zero,
+                                                  itemBuilder:
+                                                      (context, index) =>
+                                                          GestureDetector(
                                                     onTap: () {
                                                       selectedYearNumber =
-                                                          yearList[index].yearId;
+                                                          yearList[index]
+                                                              .yearId;
 
-                                                      setState(() {
-                                                        if (selectedYearNumber !=
+                                                      switch (
+                                                          selectedYearNumber) {
+                                                        case var year
+                                                            when year ==
                                                                 widget
                                                                     .firstDateRange
-                                                                    .year &&
-                                                            selectedYearNumber !=
-                                                                widget.lastDateRange
-                                                                    .year) {
-                                                          if(monthLength() < 12){
+                                                                    .year:
+                                                          setState(() {
                                                             monthList =
-                                                                monthGenerator(1);
-                                                            _selectedDateNotifier
-                                                                .value =
-                                                                Jalali(
-                                                                    selectedYearNumber,
-                                                                    _selectedDateNotifier
-                                                                        .value.month,
-                                                                    10);
-                                                          }
-
-                                                        } else if (selectedYearNumber ==
-                                                            widget.firstDateRange
-                                                                .year) {
+                                                                monthGenerator(
+                                                                    widget
+                                                                        .firstDateRange
+                                                                        .month);
+                                                            selectedMonthName =
+                                                                getMonthNameFromList(
+                                                                    widget
+                                                                        .firstDateRange
+                                                                        .month,
+                                                                    CalendarConstant
+                                                                        .monthList);
+                                                            selectedMonthNumber =
+                                                                widget
+                                                                    .firstDateRange
+                                                                    .month;
+                                                            isYearDropdownOpen =
+                                                                !isYearDropdownOpen;
+                                                            selectedYearName =
+                                                                yearList[index]
+                                                                    .yearName
+                                                                    .toString();
+                                                          });
                                                           _selectedDateNotifier
                                                                   .value =
                                                               Jalali(
@@ -402,23 +429,13 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                                       .firstDateRange
                                                                       .month,
                                                                   10);
-                                                          monthList =
-                                                              monthGenerator(widget
-                                                                  .firstDateRange
-                                                                  .month);
-                                                          selectedMonthName =
-                                                              getMonthNameFromList(
-                                                                  widget
-                                                                      .firstDateRange
-                                                                      .month,
-                                                                  CalendarConstant
-                                                                      .monthList);
-                                                          selectedMonthNumber =
-                                                              widget.firstDateRange
-                                                                  .month;
-                                                        } else if (selectedYearNumber ==
-                                                            widget.lastDateRange
-                                                                .year) {
+                                                          break;
+
+                                                        case var year
+                                                            when year ==
+                                                                widget
+                                                                    .lastDateRange
+                                                                    .year:
                                                           _selectedDateNotifier
                                                               .value = Jalali(
                                                             selectedYearNumber,
@@ -426,35 +443,62 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                                 .month,
                                                             10,
                                                           );
-                                                          monthList =
-                                                              monthGenerator(1);
-                                                          // Filter the months to ensure it includes only up to lastDateRange.month
-                                                          monthList = monthList
-                                                              .where((month) =>
-                                                                  month.monthId <=
-                                                                  widget
-                                                                      .lastDateRange
-                                                                      .month)
-                                                              .toList();
-                                                          selectedMonthName =
-                                                              getMonthNameFromList(
-                                                            widget.lastDateRange
-                                                                .month,
-                                                            CalendarConstant
-                                                                .monthList,
-                                                          );
-                                                          selectedMonthNumber =
-                                                              widget.lastDateRange
-                                                                  .month;
-                                                        }
-
-                                                        isYearDropdownOpen =
-                                                            !isYearDropdownOpen;
-                                                        selectedYearName =
-                                                            yearList[index]
-                                                                .yearName
-                                                                .toString();
-                                                      });
+                                                          setState(() {
+                                                            monthList = monthGenerator(
+                                                                    1)
+                                                                .where((month) =>
+                                                                    month
+                                                                        .monthId <=
+                                                                    widget
+                                                                        .lastDateRange
+                                                                        .month)
+                                                                .toList();
+                                                            selectedMonthName =
+                                                                getMonthNameFromList(
+                                                                    widget
+                                                                        .lastDateRange
+                                                                        .month,
+                                                                    CalendarConstant
+                                                                        .monthList);
+                                                            selectedMonthNumber =
+                                                                widget
+                                                                    .lastDateRange
+                                                                    .month;
+                                                            isYearDropdownOpen =
+                                                                !isYearDropdownOpen;
+                                                            selectedYearName =
+                                                                yearList[index]
+                                                                    .yearName
+                                                                    .toString();
+                                                          });
+                                                          break;
+                                                        default:
+                                                          if (monthLength() <
+                                                              12) {
+                                                            setState(() {
+                                                              monthList =
+                                                                  monthGenerator(
+                                                                      1);
+                                                            });
+                                                          }
+                                                          _selectedDateNotifier
+                                                                  .value =
+                                                              Jalali(
+                                                                  selectedYearNumber,
+                                                                  _selectedDateNotifier
+                                                                      .value
+                                                                      .month,
+                                                                  10);
+                                                          setState(() {
+                                                            isYearDropdownOpen =
+                                                                !isYearDropdownOpen;
+                                                            selectedYearName =
+                                                                yearList[index]
+                                                                    .yearName
+                                                                    .toString();
+                                                          });
+                                                          break;
+                                                      }
                                                     },
                                                     child: Padding(
                                                       padding:
@@ -462,9 +506,10 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                               bottom: 16.0),
                                                       child: SizedBox(
                                                         height: 25,
-                                                        child: Text(yearList[index]
-                                                            .yearName
-                                                            .toString()),
+                                                        child: Text(
+                                                            yearList[index]
+                                                                .yearName
+                                                                .toString()),
                                                       ),
                                                     ),
                                                   ),
@@ -526,7 +571,6 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                   });
                 },
                 child: Container(
-                  width: 160,
                   color: Colors.white,
                   child: Stack(
                     children: [
@@ -543,7 +587,9 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                           child: Column(
                             children: [
                               Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(selectedMonthName),
                                     AnimatedCrossFade(
@@ -557,10 +603,12 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                           child: RotatedBox(
                                               quarterTurns: 2,
                                               child: customArrowWidget)),
-                                      crossFadeState: isMonthDropdownOpen == true
-                                          ? CrossFadeState.showSecond
-                                          : CrossFadeState.showFirst,
-                                      duration: const Duration(milliseconds: 300),
+                                      crossFadeState:
+                                          isMonthDropdownOpen == true
+                                              ? CrossFadeState.showSecond
+                                              : CrossFadeState.showFirst,
+                                      duration:
+                                          const Duration(milliseconds: 300),
                                       secondCurve: Curves.easeIn,
                                       sizeCurve: Curves.easeOut,
                                     ),
@@ -574,6 +622,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                 sizeCurve: Curves.fastLinearToSlowEaseIn,
                                 firstChild: Container(),
                                 secondChild: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Divider(
                                       thickness: 1,
@@ -581,62 +631,64 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    SizedBox(
-                                      child: RawScrollbar(
-                                        controller: monthScrollController,
-                                        thumbVisibility: true,
-                                        interactive: false,
-                                        trackVisibility: false,
-                                        minThumbLength: 5,
-                                        radius: const Radius.circular(5),
-                                        thickness: 8.0,
-                                        child: CalendarConstant.monthList.isNotEmpty
-                                            ? SizedBox(
-                                                height: 200,
-                                                child: ListView.builder(
-                                                  controller: monthScrollController,
-                                                  physics:
-                                                      const BouncingScrollPhysics(),
-                                                  shrinkWrap: false,
-                                                  itemCount: monthList.length,
-                                                  itemBuilder: (context, index) =>
-                                                      GestureDetector(
-                                                    onTap: () {
-                                                      selectedMonthNumber =
-                                                          monthList[index].monthId;
-                                                      _selectedDateNotifier.value =
-                                                          Jalali(
-                                                              selectedYearNumber,
-                                                              monthList[index]
-                                                                  .monthId,
-                                                              10);
-                                                      setState(() {
-                                                        isMonthDropdownOpen =
-                                                            !isMonthDropdownOpen;
-                                                        selectedMonthName =
+                                    RawScrollbar(
+                                      padding: EdgeInsets.zero,
+                                      controller: monthScrollController,
+                                      thumbVisibility: true,
+                                      interactive: false,
+                                      trackVisibility: false,
+                                      minThumbLength: 5,
+                                      radius: const Radius.circular(5),
+                                      thickness: 8.0,
+                                      child: CalendarConstant
+                                              .monthList.isNotEmpty
+                                          ? SizedBox(
+                                              height: 200,
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                controller:
+                                                    monthScrollController,
+                                                itemCount: monthList.length,
+                                                itemBuilder: (context, index) =>
+                                                    GestureDetector(
+                                                  onTap: () {
+                                                    selectedMonthNumber =
+                                                        monthList[index]
+                                                            .monthId;
+                                                    _selectedDateNotifier
+                                                            .value =
+                                                        Jalali(
+                                                            selectedYearNumber,
                                                             monthList[index]
-                                                                .monthName;
-                                                      });
-                                                    },
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 16.0),
-                                                      child: SizedBox(
-                                                        height: 25,
-                                                        child: Text(monthList[index]
-                                                            .monthName
-                                                            .toString()),
-                                                      ),
+                                                                .monthId,
+                                                            10);
+                                                    setState(() {
+                                                      isMonthDropdownOpen =
+                                                          !isMonthDropdownOpen;
+                                                      selectedMonthName =
+                                                          monthList[index]
+                                                              .monthName;
+                                                    });
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 16.0),
+                                                    child: SizedBox(
+                                                      height: 25,
+                                                      child: Text(
+                                                          monthList[index]
+                                                              .monthName
+                                                              .toString()),
                                                     ),
                                                   ),
                                                 ),
-                                              )
-                                            : const Align(
-                                                alignment: Alignment.topRight,
-                                                child: Text('نتیجه ای یافت نشد'),
                                               ),
-                                      ),
+                                            )
+                                          : const Align(
+                                              alignment: Alignment.topRight,
+                                              child: Text('نتیجه ای یافت نشد'),
+                                            ),
                                     ),
                                     const SizedBox(
                                       height: 10,

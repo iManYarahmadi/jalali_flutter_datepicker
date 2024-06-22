@@ -85,7 +85,9 @@ class PCalendarDatePicker extends StatefulWidget {
     required this.disabledDayColor,
     required this.selectedDayColor,
     required this.selectedDayBackground,
-    required this.todayColor, required this.footerIconColor, required this.footerTextStyle,
+    required this.todayColor,
+    required this.footerIconColor,
+    required this.footerTextStyle,
   })  : initialDate = utils.dateOnly(initialDate),
         firstDate = utils.dateOnly(firstDate),
         lastDate = utils.dateOnly(lastDate),
@@ -260,7 +262,9 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
           disabledDayColor: widget.disabledDayColor,
           selectedDayColor: widget.selectedDayColor,
           selectedDayBackground: widget.selectedDayBackground,
-          todayColor: widget.todayColor, footerIconColor: widget.footerIconColor, footerTextStyle: widget.footerTextStyle,
+          todayColor: widget.todayColor,
+          footerIconColor: widget.footerIconColor,
+          footerTextStyle: widget.footerTextStyle,
         );
       // case PDatePickerMode.year:
       //   return Padding(
@@ -441,7 +445,9 @@ class _MonthPicker extends StatefulWidget {
     required this.disabledDayColor,
     required this.selectedDayColor,
     required this.selectedDayBackground,
-    required this.todayColor, required this.footerIconColor, required this.footerTextStyle,
+    required this.todayColor,
+    required this.footerIconColor,
+    required this.footerTextStyle,
   })  : assert(!firstDate.isAfter(lastDate)),
         assert(!selectedDate.isBefore(firstDate)),
         assert(!selectedDate.isAfter(lastDate)),
@@ -602,29 +608,32 @@ class _MonthPickerState extends State<_MonthPicker> {
 
     return Semantics(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           // _DayHeaders(),
           SizedBox(
-            height: 250,
-            child: Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                itemBuilder: _buildItems,
-                itemCount:
-                    utils.monthDelta(widget.firstDate, widget.lastDate) + 1,
-                scrollDirection: Axis.horizontal,
-                onPageChanged: _handleMonthPageChanged,
-              ),
+            height: 230,
+            child: PageView.builder(
+              padEnds: false,
+              controller: _pageController,
+              itemBuilder: _buildItems,
+              itemCount:
+                  utils.monthDelta(widget.firstDate, widget.lastDate) + 1,
+              scrollDirection: Axis.horizontal,
+              onPageChanged: _handleMonthPageChanged,
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   //samim custom icon
                   IconButton(
-                    icon:  Icon(
+                    icon: Icon(
                       Icons.chevron_left,
                       color: widget.footerIconColor,
                       size: 12,
@@ -642,7 +651,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                         _handlePreviousMonth();
                       }
                     },
-                    child:  Text(
+                    child: Text(
                       'ماه قبل',
                       style: widget.footerTextStyle,
                     ),
@@ -650,6 +659,8 @@ class _MonthPickerState extends State<_MonthPicker> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: () {
@@ -657,14 +668,14 @@ class _MonthPickerState extends State<_MonthPicker> {
                         _handleNextMonth();
                       }
                     },
-                    child:  Text(
+                    child: Text(
                       'ماه بعد',
                       style: widget.footerTextStyle,
                     ),
                   ),
                   IconButton(
                     hoverColor: Colors.white,
-                    icon:  Icon(Icons.chevron_right,
+                    icon: Icon(Icons.chevron_right,
                         color: widget.footerIconColor, size: 12),
                     color: controlColor,
                     tooltip: _isDisplayingLastMonth ? null : nextTooltipText,
@@ -831,6 +842,7 @@ class _DayPicker extends StatelessWidget {
         horizontal: _monthPickerHorizontalPadding,
       ),
       child: GridView.custom(
+        padding: const EdgeInsets.only(top: 10),
         physics: const ClampingScrollPhysics(),
         gridDelegate: _dayPickerGridDelegate,
         childrenDelegate: SliverChildListDelegate(

@@ -26,7 +26,9 @@ String formatTimeOfDay(TimeOfDay timeOfDay,
   }
 
   // Add AM/PM indicator.
-  buffer..write(' ')..write(_formatDayPeriod(timeOfDay));
+  buffer
+    ..write(' ')
+    ..write(_formatDayPeriod(timeOfDay));
   return '$buffer';
 }
 

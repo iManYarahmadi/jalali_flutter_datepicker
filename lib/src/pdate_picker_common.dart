@@ -15,10 +15,13 @@ import 'package:jalali_flutter_datepicker/src/date/shamsi_date.dart';
 enum PDatePickerEntryMode {
   /// Tapping on a calendar.
   calendar,
+
   /// only calendar.
   calendarOnly,
+
   /// Text input.
   input,
+
   /// Text input only.
   inputOnly,
 }

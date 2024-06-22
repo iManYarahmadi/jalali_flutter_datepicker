@@ -113,14 +113,17 @@ Future<JalaliRange?> showPersianDateRangePicker({
 }) async {
   assert(context != null);
   assert(
-    initialDateRange == null || (initialDateRange.start != null && initialDateRange.end != null),
+    initialDateRange == null ||
+        (initialDateRange.start != null && initialDateRange.end != null),
     'initialDateRange must be null or have non-null start and end dates.',
   );
   assert(
-    initialDateRange == null || !initialDateRange.start.isAfter(initialDateRange.end),
+    initialDateRange == null ||
+        !initialDateRange.start.isAfter(initialDateRange.end),
     "initialDateRange's start date must not be after it's end date.",
   );
-  initialDateRange = initialDateRange == null ? null : utils.datesOnly(initialDateRange);
+  initialDateRange =
+      initialDateRange == null ? null : utils.datesOnly(initialDateRange);
   assert(firstDate != null);
   firstDate = utils.dateOnly(firstDate);
   assert(lastDate != null);
