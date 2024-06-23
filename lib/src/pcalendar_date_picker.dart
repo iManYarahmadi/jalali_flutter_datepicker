@@ -154,7 +154,7 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
   Jalali? _currentDisplayedMonthDate;
   Jalali? _selectedDate;
   final GlobalKey _monthPickerKey = GlobalKey();
-  final GlobalKey _yearPickerKey = GlobalKey();
+  // final GlobalKey _yearPickerKey = GlobalKey();
   late TextDirection _textDirection;
 
   @override
@@ -192,24 +192,23 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
         break;
     }
   }
-
-  void _handleModeChanged(PDatePickerMode mode) {
-    _vibrate();
-    setState(() {
-      _mode = mode;
-      if (_mode == PDatePickerMode.day) {
-        SemanticsService.announce(
-          formatMonthYear(_selectedDate!),
-          _textDirection,
-        );
-      } else {
-        SemanticsService.announce(
-          formatYear(_selectedDate!),
-          _textDirection,
-        );
-      }
-    });
-  }
+  // void _handleModeChanged(PDatePickerMode mode) {
+  //   _vibrate();
+  //   setState(() {
+  //     _mode = mode;
+  //     if (_mode == PDatePickerMode.day) {
+  //       SemanticsService.announce(
+  //         formatMonthYear(_selectedDate!),
+  //         _textDirection,
+  //       );
+  //     } else {
+  //       SemanticsService.announce(
+  //         formatYear(_selectedDate!),
+  //         _textDirection,
+  //       );
+  //     }
+  //   });
+  // }
 
   void _handleMonthChanged(Jalali? date) {
     setState(() {
@@ -221,20 +220,20 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
     });
   }
 
-  void _handleYearChanged(Jalali value) {
-    _vibrate();
-
-    if (value.isBefore(widget.firstDate)) {
-      value = widget.firstDate;
-    } else if (value.isAfter(widget.lastDate)) {
-      value = widget.lastDate;
-    }
-
-    setState(() {
-      _mode = PDatePickerMode.day;
-      _handleMonthChanged(value);
-    });
-  }
+  // void _handleYearChanged(Jalali value) {
+  //   _vibrate();
+  //
+  //   if (value.isBefore(widget.firstDate)) {
+  //     value = widget.firstDate;
+  //   } else if (value.isAfter(widget.lastDate)) {
+  //     value = widget.lastDate;
+  //   }
+  //
+  //   setState(() {
+  //     _mode = PDatePickerMode.day;
+  //     _handleMonthChanged(value);
+  //   });
+  // }
 
   void _handleDayChanged(Jalali value) {
     _vibrate();
@@ -749,7 +748,7 @@ class _DayPicker extends StatelessWidget {
   final Color todayColor;
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    // final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;
     final TextStyle? dayStyle = textTheme.bodySmall;
     // final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
@@ -1027,7 +1026,7 @@ class _YearPickerState extends State<_YearPicker> {
     } else {
       textColor = colorScheme.onSurface.withOpacity(0.87);
     }
-    final TextStyle? itemStyle = textTheme.bodyText1?.apply(color: textColor);
+    final TextStyle? itemStyle = textTheme.bodyLarge?.apply(color: textColor);
 
     BoxDecoration? decoration;
     if (isSelected) {

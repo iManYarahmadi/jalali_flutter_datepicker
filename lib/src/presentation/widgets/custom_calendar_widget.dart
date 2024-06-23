@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
 import 'package:jalali_flutter_datepicker/jalali_flutter_datepicker.dart';
 import 'package:jalali_flutter_datepicker/src/presentation/methods/month_generator.dart';
 
@@ -44,7 +43,7 @@ import 'package:jalali_flutter_datepicker/src/presentation/methods/month_generat
 /// ```
 ///
 class JalaliFlutterDatePicker extends StatefulWidget {
-  late final Jalali initialDate;
+   final Jalali initialDate;
   final ValueChanged<Jalali?> onDateChanged;
   final Jalali firstDateRange;
   final Jalali lastDateRange;
@@ -58,7 +57,7 @@ class JalaliFlutterDatePicker extends StatefulWidget {
   final TextStyle? footerTextStyle;
   final TextStyle? headerTextStyle;
 
-  JalaliFlutterDatePicker({
+  const JalaliFlutterDatePicker({
     super.key,
     required this.initialDate,
     required this.onDateChanged,
@@ -117,25 +116,18 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
     super.initState();
 
     // Initialize the month list based on the initial date
-    if (widget.initialDate != null) {
-      _selectedDateNotifier = ValueNotifier<Jalali>(widget.initialDate);
-      selectedYearNumber = widget.initialDate.year;
-      if (selectedYearNumber == widget.firstDateRange.year) {
-        monthList = monthGenerator(widget.firstDateRange.month);
-      } else if (selectedYearNumber == widget.lastDateRange.year) {
-        monthList = monthGenerator(1)
-            .where((month) => month.monthId <= widget.lastDateRange.month)
-            .toList();
-      } else {
-        monthList = monthGenerator(1);
-      }
+    _selectedDateNotifier = ValueNotifier<Jalali>(widget.initialDate);
+    selectedYearNumber = widget.initialDate.year;
+    if (selectedYearNumber == widget.firstDateRange.year) {
+      monthList = monthGenerator(widget.firstDateRange.month);
+    } else if (selectedYearNumber == widget.lastDateRange.year) {
+      monthList = monthGenerator(1)
+          .where((month) => month.monthId <= widget.lastDateRange.month)
+          .toList();
     } else {
-      // Fallback in case initial date is not provided
-      _selectedDateNotifier = ValueNotifier<Jalali>(Jalali.now());
-      selectedYearNumber = _selectedDateNotifier.value.year;
       monthList = monthGenerator(1);
     }
-  }
+    }
 
   @override
   Widget build(BuildContext context) {

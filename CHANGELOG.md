@@ -5,4 +5,4 @@
 - Fix Directionality
 
 ## 1.0.2
-- Change Minimum Sdk Version For Compatibility Most Project
+- Change Minimum Sdk Version And Remove unnecessary class
