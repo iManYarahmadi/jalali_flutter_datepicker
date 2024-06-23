@@ -27,7 +27,7 @@ class JalaliHomePage extends StatelessWidget {
           children: [
             JalaliFlutterDatePicker(
               onDateChanged: (value) {},
-              initialDate: Jalali(1330, 3, 2),
+              initialDate: Jalali(1350, 3, 2),
               firstDateRange: Jalali(1340, 3, 1),
               lastDateRange: Jalali(1360, 8, 29),
               disabledDayColor: Colors.grey,

@@ -8,8 +8,8 @@
   <h1>Jalali Flutter Date Picker</h1>
 
   <p align="center">
-    <img src="https://imgurl.ir/uploads/h707227_IMG_2087.jpg" width="400" alt="Jalali Flutter Date Picker - Preview 1" />
-    <img src="https://imgurl.ir/uploads/x23995_IMG_2088.jpg" width="400" alt="Jalali Flutter Date Picker - Preview 2" />
+    <img src="https://imgurl.ir/uploads/h707227_IMG_2087.jpg" width="300" alt="Jalali Flutter Date Picker - Preview 1" />
+    <img src="https://imgurl.ir/uploads/x23995_IMG_2088.jpg" width="300" alt="Jalali Flutter Date Picker - Preview 2" />
   </p>
 
   <p>Jalali Flutter Date Picker is a customizable Jalali (Persian) date picker widget for Flutter. This package allows you to easily integrate a Jalali date picker into your Flutter applications with various customization options, including colors for different date states.</p>
@@ -64,6 +64,8 @@
     footerIconColor: const Color(0xffFD9404),
     footerTextStyle: const TextStyle(color: Color(0xffFD9404), fontSize: 12),
     headerTextStyle: const TextStyle(color: Color(0xffFD9404)),
+    customArrowWidget: const Icon(Icons.arrow_upward_sharp),
+
   )
   </pre>
 
