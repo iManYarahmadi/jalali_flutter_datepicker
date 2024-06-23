@@ -41,7 +41,6 @@
 
   <pre>
   import 'package:jalali_flutter_datepicker/jalali_flutter_datepicker.dart';
-  import 'package:shamsi_date/shamsi_date.dart';
   </pre>
 
 <h3>Example</h3>
