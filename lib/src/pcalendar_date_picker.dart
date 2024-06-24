@@ -878,65 +878,65 @@ class _DayPickerGridDelegate extends SliverGridDelegate {
 
 const _DayPickerGridDelegate _dayPickerGridDelegate = _DayPickerGridDelegate();
 
-class _DayHeaders extends StatelessWidget {
-  /// Builds widgets showing abbreviated days of week. The first widget in the
-  /// returned list corresponds to the first day of week for the current locale.
-  ///
-  /// Examples:
-  ///
-  /// ```
-  /// ┌ Sunday is the first day of week in the US (en_US)
-  /// |
-  /// S M T W T F S  <-- the returned list contains these widgets
-  /// _ _ _ _ _ 1 2
-  /// 3 4 5 6 7 8 9
-  ///
-  /// ┌ But it's Monday in the UK (en_GB)
-  /// |
-  /// M T W T F S S  <-- the returned list contains these widgets
-  /// _ _ _ _ 1 2 3
-  /// 4 5 6 7 8 9 10
-  /// ```
-  List<Widget> _getDayHeaders(
-      TextStyle? headerStyle, MaterialLocalizations localizations) {
-    final List<Widget> result = <Widget>[];
-    int firstDayOfWeekIndex = 0;
-    for (int i = firstDayOfWeekIndex; true; i = (i + 1) % 7) {
-      final String weekday = narrowWeekdays[i];
-      result.add(ExcludeSemantics(
-        child: Center(child: Text(weekday, style: headerStyle)),
-      ));
-      if (i == (firstDayOfWeekIndex - 1) % 7) break;
-    }
-    return result;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextStyle? dayHeaderStyle = theme.textTheme.bodySmall?.apply(
-      color: colorScheme.onSurface.withOpacity(0.60),
-    );
-    final MaterialLocalizations localizations =
-        MaterialLocalizations.of(context);
-    final List<Widget> labels = _getDayHeaders(dayHeaderStyle, localizations);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: _monthPickerHorizontalPadding,
-      ),
-      child: GridView.custom(
-        shrinkWrap: true,
-        gridDelegate: _dayPickerGridDelegate,
-        childrenDelegate: SliverChildListDelegate(
-          labels,
-          addRepaintBoundaries: false,
-        ),
-      ),
-    );
-  }
-}
+// class _DayHeaders extends StatelessWidget {
+//   /// Builds widgets showing abbreviated days of week. The first widget in the
+//   /// returned list corresponds to the first day of week for the current locale.
+//   ///
+//   /// Examples:
+//   ///
+//   /// ```
+//   /// ┌ Sunday is the first day of week in the US (en_US)
+//   /// |
+//   /// S M T W T F S  <-- the returned list contains these widgets
+//   /// _ _ _ _ _ 1 2
+//   /// 3 4 5 6 7 8 9
+//   ///
+//   /// ┌ But it's Monday in the UK (en_GB)
+//   /// |
+//   /// M T W T F S S  <-- the returned list contains these widgets
+//   /// _ _ _ _ 1 2 3
+//   /// 4 5 6 7 8 9 10
+//   /// ```
+//   List<Widget> _getDayHeaders(
+//       TextStyle? headerStyle, MaterialLocalizations localizations) {
+//     final List<Widget> result = <Widget>[];
+//     int firstDayOfWeekIndex = 0;
+//     for (int i = firstDayOfWeekIndex; true; i = (i + 1) % 7) {
+//       final String weekday = narrowWeekdays[i];
+//       result.add(ExcludeSemantics(
+//         child: Center(child: Text(weekday, style: headerStyle)),
+//       ));
+//       if (i == (firstDayOfWeekIndex - 1) % 7) break;
+//     }
+//     return result;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final ThemeData theme = Theme.of(context);
+//     final ColorScheme colorScheme = theme.colorScheme;
+//     final TextStyle? dayHeaderStyle = theme.textTheme.bodySmall?.apply(
+//       color: colorScheme.onSurface.withOpacity(0.60),
+//     );
+//     final MaterialLocalizations localizations =
+//         MaterialLocalizations.of(context);
+//     final List<Widget> labels = _getDayHeaders(dayHeaderStyle, localizations);
+//
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(
+//         horizontal: _monthPickerHorizontalPadding,
+//       ),
+//       child: GridView.custom(
+//         shrinkWrap: true,
+//         gridDelegate: _dayPickerGridDelegate,
+//         childrenDelegate: SliverChildListDelegate(
+//           labels,
+//           addRepaintBoundaries: false,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 /// A scrollable list of years to allow picking a year.
 class _YearPicker extends StatefulWidget {

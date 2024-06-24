@@ -6,3 +6,6 @@
 
 ## 1.0.2
 - Change Minimum Sdk Version And Remove unnecessary class
+
+## 1.0.3
+- Revert Some Deprecated Value For Support Lower Version of Dart Sdk
