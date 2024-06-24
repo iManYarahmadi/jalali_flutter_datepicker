@@ -13,5 +13,5 @@ export 'src/presentation/methods/year_generator.dart';
 export 'src/presentation/models/month_model.dart';
 export 'src/presentation/models/year_model.dart';
 export 'src/presentation/widgets/calendar_header.dart';
-export 'src/presentation/widgets/custom_calendar_widget.dart';
+export 'src/presentation/widgets/jalali_flutter_date_picker.dart';
 export 'src/presentation/widgets/custom_error_handler.dart';

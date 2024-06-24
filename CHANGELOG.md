@@ -9,3 +9,6 @@
 
 ## 1.0.3
 - Revert Some Deprecated Value For Support Lower Version of Dart Sdk
+
+## 1.0.4
+- fix Calendar Height For Small Devices
