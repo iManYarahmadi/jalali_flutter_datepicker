@@ -56,6 +56,10 @@ class JalaliFlutterDatePicker extends StatefulWidget {
   final Color? footerIconColor;
   final TextStyle? footerTextStyle;
   final TextStyle? headerTextStyle;
+  final TextStyle? selectedYearTextStyle;
+   final TextStyle? yearsDropDownItemTextStyle;
+   final TextStyle? selectedMonthTextStyle;
+   final TextStyle? monthDropDownItemTextStyle;
 
   const JalaliFlutterDatePicker({
     super.key,
@@ -72,8 +76,10 @@ class JalaliFlutterDatePicker extends StatefulWidget {
     this.footerIconColor = Colors.green,
     TextStyle? footerTextStyle,
     TextStyle? headerTextStyle,
+    this.selectedYearTextStyle,
+    this.yearsDropDownItemTextStyle, this.selectedMonthTextStyle, this.monthDropDownItemTextStyle,
   })  : footerTextStyle = footerTextStyle ??
-            const TextStyle(color: Colors.green, fontSize: 12),
+            const TextStyle(color: Colors.black, fontSize: 12),
         headerTextStyle = headerTextStyle ??
             const TextStyle(
               color: Colors.black,
@@ -149,7 +155,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(top: 12,right: 10,left: 10),
                     child: Column(
                       children: [
                         Stack(
@@ -243,15 +249,20 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                               children: [
                                 Expanded(
                                   child: monthSelection(
+                                    widget.selectedMonthTextStyle,
+                                      widget.monthDropDownItemTextStyle,
                                       customArrowWidget:
                                           widget.customArrowWidget,
                                       startMonth: widget.firstDateRange.month),
                                 ),
                                 Expanded(
                                   child: yearSelection(
-                                    customArrowWidget: widget.customArrowWidget,
-                                    widget.firstDateRange.year,
+                                      customArrowWidget: widget.customArrowWidget,
+
+                                      widget.firstDateRange.year,
                                     widget.lastDateRange.year,
+                                    widget.selectedYearTextStyle,
+                                    widget.yearsDropDownItemTextStyle
                                   ),
                                 ),
                               ],
@@ -270,7 +281,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
     );
   }
 
-  Widget yearSelection(int startYear, int endYear,
+  Widget yearSelection(int startYear, int endYear,TextStyle? selectedYearTextStyle,TextStyle? yearsDropDownItemTextStyle,
       {required Widget customArrowWidget}) {
     List<YearModel> yearList = yearGenerator(startYear, endYear);
     return Column(
@@ -306,7 +317,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(selectedYearName),
+                                    Text(selectedYearName,style: selectedYearTextStyle ?? const TextStyle(fontSize: 15)),
                                     AnimatedCrossFade(
                                       firstChild: SizedBox(
                                           height: 24,
@@ -377,10 +388,10 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                           isYearDropdownOpen = !isYearDropdownOpen;
                                                           selectedYearName = yearList[index].yearName.toString();
                                                         });
-                                                        _selectedDateNotifier.value = Jalali(selectedYearNumber, widget.firstDateRange.month, 10);
+                                                        _selectedDateNotifier.value = Jalali(selectedYearNumber, widget.firstDateRange.month, 1);
                                                       } else if (selectedYearNumber == widget.lastDateRange.year) {
                                                         // Case: Selected year is the last year in the range
-                                                        _selectedDateNotifier.value = Jalali(selectedYearNumber, widget.lastDateRange.month, 10);
+                                                        _selectedDateNotifier.value = Jalali(selectedYearNumber, widget.lastDateRange.month, 1);
                                                         setState(() {
                                                           monthList = monthGenerator(1).where((month) => month.monthId <= widget.lastDateRange.month).toList();
                                                           selectedMonthName = getMonthNameFromList(widget.lastDateRange.month, CalendarConstant.monthList);
@@ -395,7 +406,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                             monthList = monthGenerator(1);
                                                           });
                                                         }
-                                                        _selectedDateNotifier.value = Jalali(selectedYearNumber, _selectedDateNotifier.value.month, 10);
+                                                        _selectedDateNotifier.value = Jalali(selectedYearNumber, _selectedDateNotifier.value.month, 1);
                                                         setState(() {
                                                           isYearDropdownOpen = !isYearDropdownOpen;
                                                           selectedYearName = yearList[index].yearName.toString();
@@ -412,7 +423,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                         child: Text(
                                                             yearList[index]
                                                                 .yearName
-                                                                .toString()),
+                                                                .toString(),style: yearsDropDownItemTextStyle??const TextStyle(fontSize: 14)),
+
                                                       ),
                                                     ),
                                                   ),
@@ -459,8 +471,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
     );
   }
 
-  Widget monthSelection(
-      {required Widget customArrowWidget, required int startMonth}) {
+  Widget monthSelection(TextStyle? selectedMonthTextStyle,TextStyle? monthDropDownItemTextStyle,
+      {required Widget customArrowWidget, required int startMonth,}) {
     return Column(
       children: [
         Stack(
@@ -494,7 +506,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(selectedMonthName),
+                                    Text(selectedMonthName,style: selectedMonthTextStyle??const TextStyle(fontSize: 15),),
                                     AnimatedCrossFade(
                                       firstChild: SizedBox(
                                           width: 24,
@@ -564,7 +576,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                             selectedYearNumber,
                                                             monthList[index]
                                                                 .monthId,
-                                                            10);
+                                                            1);
                                                     setState(() {
                                                       isMonthDropdownOpen =
                                                           !isMonthDropdownOpen;
@@ -582,7 +594,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                       child: Text(
                                                           monthList[index]
                                                               .monthName
-                                                              .toString()),
+                                                              .toString(),style: monthDropDownItemTextStyle??const TextStyle(fontSize: 14),),
                                                     ),
                                                   ),
                                                 ),

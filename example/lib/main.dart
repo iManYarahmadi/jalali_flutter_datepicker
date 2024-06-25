@@ -6,7 +6,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
+      theme: ThemeData(
+        fontFamily:'iransans',
+      ),
       debugShowCheckedModeBanner: false,
       home: JalaliHomePage(),
     );
@@ -37,8 +40,12 @@ class JalaliHomePage extends StatelessWidget {
               todayColor: const Color(0xffFD9404),
               footerIconColor: const Color(0xffFD9404),
               footerTextStyle:
-                  const TextStyle(color: Color(0xffFD9404), fontSize: 12),
+                  const TextStyle(color: Color(0xffFD9404), fontSize: 15),
               headerTextStyle: const TextStyle(color: Color(0xffFD9404)),
+              selectedMonthTextStyle: const TextStyle(fontSize: 15),
+              monthDropDownItemTextStyle:  const TextStyle(fontSize: 14),
+              selectedYearTextStyle: const TextStyle(fontSize: 15) ,
+              yearsDropDownItemTextStyle:  const TextStyle(fontSize: 14),
             ),
           ],
         ),

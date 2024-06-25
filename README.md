@@ -64,6 +64,10 @@
     footerTextStyle: const TextStyle(color: Color(0xffFD9404), fontSize: 12),
     headerTextStyle: const TextStyle(color: Color(0xffFD9404)),
     customArrowWidget: const Icon(Icons.arrow_upward_sharp),
+    selectedMonthTextStyle: const TextStyle(fontSize: 15),
+    monthDropDownItemTextStyle:  const TextStyle(fontSize: 14),
+    selectedYearTextStyle: const TextStyle(fontSize: 15) ,
+    yearsDropDownItemTextStyle:  const TextStyle(fontSize: 14),
 
   )
   </pre>

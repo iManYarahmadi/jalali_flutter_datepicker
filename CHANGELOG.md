@@ -12,3 +12,6 @@
 
 ## 1.0.4
 - fix Calendar Height For Small Devices
+
+## 1.0.5
+- Customize Text Style Years Selected Drop Down And Month Selected Drop Down

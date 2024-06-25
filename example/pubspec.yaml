@@ -26,3 +26,10 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  fonts:
+    - family: iransans
+      fonts:
+        - asset: fonts/iransans_light.ttf
+          weight: 500
+
+
