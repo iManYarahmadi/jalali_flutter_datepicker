@@ -23,32 +23,24 @@ class JalaliHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            JalaliFlutterDatePicker(
-              onDateChanged: (value) {},
-              initialDate: Jalali(1350, 3, 2),
-              firstDateRange: Jalali(1340, 3, 1),
-              lastDateRange: Jalali(1360, 8, 29),
-              disabledDayColor: Colors.grey,
-              enabledDayColor: Colors.black,
-              selectedDayBackground: const Color(0xffFD9404),
-              selectedDayColor: Colors.white,
-              todayColor: const Color(0xffFD9404),
-              footerIconColor: const Color(0xffFD9404),
-              footerTextStyle:
-                  const TextStyle(color: Color(0xffFD9404), fontSize: 15),
-              headerTextStyle: const TextStyle(color: Color(0xffFD9404)),
-              selectedMonthTextStyle: const TextStyle(fontSize: 15),
-              monthDropDownItemTextStyle:  const TextStyle(fontSize: 14),
-              selectedYearTextStyle: const TextStyle(fontSize: 15) ,
-              yearsDropDownItemTextStyle:  const TextStyle(fontSize: 14),
-            ),
-          ],
-        ),
+      body: JalaliFlutterDatePicker(
+        onDateChanged: (value) {},
+        initialDate: Jalali(1350, 3, 2),
+        firstDateRange: Jalali(1340, 3, 1),
+        lastDateRange: Jalali(1360, 8, 29),
+        disabledDayColor: Colors.grey,
+        enabledDayColor: Colors.black,
+        selectedDayBackground: const Color(0xffFD9404),
+        selectedDayColor: Colors.white,
+        todayColor: const Color(0xffFD9404),
+        footerIconColor: const Color(0xffFD9404),
+        footerTextStyle:
+            const TextStyle(color: Color(0xffFD9404), fontSize: 15),
+        headerTextStyle: const TextStyle(color: Color(0xffFD9404)),
+        selectedMonthTextStyle: const TextStyle(fontSize: 15),
+        monthDropDownItemTextStyle:  const TextStyle(fontSize: 14),
+        selectedYearTextStyle: const TextStyle(fontSize: 15) ,
+        yearsDropDownItemTextStyle:  const TextStyle(fontSize: 14),
       ),
     );
   }
