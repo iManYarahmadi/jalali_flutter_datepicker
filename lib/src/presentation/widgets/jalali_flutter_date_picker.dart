@@ -143,19 +143,19 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
         child: ValueListenableBuilder<Jalali>(
           valueListenable: _selectedDateNotifier,
           builder: (context, selectedDate, _) {
-            return Expanded(
-              child: Center(
-                child: Container(
-                  height: 440,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      width: 1,
-                      color: const Color(0xffE9E9E9),
-                    ),
+            return Center(
+              child: Container(
+                height: 440,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 1,
+                    color: const Color(0xffE9E9E9),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 12,right: 10,left: 10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12,right: 10,left: 10),
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Stack(
@@ -176,11 +176,11 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                         // Update the selected year name and number
                                         selectedYearName = value!.year.toString();
                                         selectedYearNumber = value.year;
-
-// Update the selected date notifier value
+                    
+                                    // Update the selected date notifier value
                                         _selectedDateNotifier.value = value;
-
-// Using if-else for conditions since Dart's switch-case does not support complex conditions directly
+                    
+                                    // Using if-else for conditions since Dart's switch-case does not support complex conditions directly
                                         if (selectedYearNumber == widget.firstDateRange.year) {
                                           // Case: Selected year is the first year in the range
                                           setState(() {
@@ -216,7 +216,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                           // Set the selected month name based on the current month
                                           selectedMonthName = monthList[value.month - 1].monthName;
                                         }
-
+                    
                                       },
                                       key: UniqueKey(),
                                       initialDate: selectedDate,
@@ -258,7 +258,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                 Expanded(
                                   child: yearSelection(
                                       customArrowWidget: widget.customArrowWidget,
-
+                    
                                       widget.firstDateRange.year,
                                     widget.lastDateRange.year,
                                     widget.selectedYearTextStyle,

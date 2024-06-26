@@ -8,8 +8,8 @@
   <h1>Jalali Flutter Date Picker</h1>
 
   <p align="center">
-    <img src="https://imgurl.ir/uploads/o58018_2.jpeg" width="300" alt="Jalali Flutter Date Picker - Preview 1" />
-    <img src="https://imgurl.ir/uploads/w60242_1.jpeg" width="300" alt="Jalali Flutter Date Picker - Preview 2" />
+    <img src="https://imgurl.ir/uploads/l001167_1.jpg" width="300" alt="Jalali Flutter Date Picker - Preview 1" />
+    <img src="https://imgurl.ir/uploads/t60130_2.jpg" width="300" alt="Jalali Flutter Date Picker - Preview 2" />
   </p>
 
   <p>Jalali Flutter Date Picker is a customizable Jalali (Persian) date picker widget for Flutter. This package allows you to easily integrate a Jalali date picker into your Flutter applications with various customization options, including colors for different date states.</p>
@@ -19,9 +19,9 @@
   <ul>
     <li>Selectable Date Range: Define a range of selectable dates using `firstDateRange` and `lastDateRange` properties.</li>
     <li>Customizable Colors: Set different colors for enabled, disabled, selected, and today's dates using various properties.</li>
-    <li>Year Selection:** Navigate between years using the built-in dropdown menus.</li>
-    <li>Dynamic Month & Year:** Months and years are generated dynamically based on the selectable date range.</li>
-    <li>Fully Customizable:** Adjust the look and feel of the date picker to match your app's design.</li>
+    <li>Year Selection: Navigate between years using the built-in dropdown menus.</li>
+    <li>Dynamic Month & Year: Months and years are generated dynamically based on the selectable date range.</li>
+    <li>Fully Customizable: Adjust the look and feel of the date picker to match your app's design.</li>
   </ul>
 
 <h2>Installation</h2>
@@ -63,7 +63,7 @@
     footerIconColor: const Color(0xffFD9404),
     footerTextStyle: const TextStyle(color: Color(0xffFD9404), fontSize: 12),
     headerTextStyle: const TextStyle(color: Color(0xffFD9404)),
-    customArrowWidget: const Icon(Icons.arrow_upward_sharp),
+    customArrowWidget: const Icon(CupertinoIcons.chevron_down),
     selectedMonthTextStyle: const TextStyle(fontSize: 15),
     monthDropDownItemTextStyle:  const TextStyle(fontSize: 14),
     selectedYearTextStyle: const TextStyle(fontSize: 15) ,
