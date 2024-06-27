@@ -60,6 +60,7 @@ class JalaliFlutterDatePicker extends StatefulWidget {
    final TextStyle? yearsDropDownItemTextStyle;
    final TextStyle? selectedMonthTextStyle;
    final TextStyle? monthDropDownItemTextStyle;
+   final String? language;
 
   const JalaliFlutterDatePicker({
     super.key,
@@ -77,7 +78,7 @@ class JalaliFlutterDatePicker extends StatefulWidget {
     TextStyle? footerTextStyle,
     TextStyle? headerTextStyle,
     this.selectedYearTextStyle,
-    this.yearsDropDownItemTextStyle, this.selectedMonthTextStyle, this.monthDropDownItemTextStyle,
+    this.yearsDropDownItemTextStyle, this.selectedMonthTextStyle, this.monthDropDownItemTextStyle, this.language,
   })  : footerTextStyle = footerTextStyle ??
             const TextStyle(color: Colors.black, fontSize: 12),
         headerTextStyle = headerTextStyle ??
@@ -105,17 +106,22 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
 
   ///Note convert month selected number to name of week
   late String selectedMonthName = getMonthNameFromList(
-      widget.firstDateRange.month, CalendarConstant.monthList);
+      widget.firstDateRange.month, widget.language == "dari"?CalendarConstant.dariMonthList:CalendarConstant.persianMonthList);
   late String selectedYearName = widget.initialDate.year.toString();
 
   ///Note month and year scroll controller
   final monthScrollController = ScrollController();
   final yearScrollController = ScrollController();
-  late List<MonthModel> monthList = monthGenerator(widget.firstDateRange.month);
+  String language(){
+    return  widget.language == "dari"?"dari":"persian";
+  }
+  late List<MonthModel> monthList = monthGenerator(widget.firstDateRange.month,language: language());
 
   int monthLength() {
     return monthList.length;
   }
+
+
 
   @override
   void initState() {
@@ -125,13 +131,13 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
     _selectedDateNotifier = ValueNotifier<Jalali>(widget.initialDate);
     selectedYearNumber = widget.initialDate.year;
     if (selectedYearNumber == widget.firstDateRange.year) {
-      monthList = monthGenerator(widget.firstDateRange.month);
+      monthList = monthGenerator(widget.firstDateRange.month,language: language());
     } else if (selectedYearNumber == widget.lastDateRange.year) {
-      monthList = monthGenerator(1)
+      monthList = monthGenerator(1,language: language())
           .where((month) => month.monthId <= widget.lastDateRange.month)
           .toList();
     } else {
-      monthList = monthGenerator(1);
+      monthList = monthGenerator(1,language: language());
     }
     }
 
@@ -185,7 +191,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                           // Case: Selected year is the first year in the range
                                           setState(() {
                                             // Generate month list starting from the first valid month
-                                            monthList = monthGenerator(widget.firstDateRange.month);
+                                            monthList = monthGenerator(widget.firstDateRange.month,language: language());
                                           });
                                           // Calculate the month index based on the first valid month
                                           int monthIndex = value.month - widget.firstDateRange.month;
@@ -195,7 +201,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                           // Case: Selected year is the last year in the range
                                           setState(() {
                                             // Generate month list starting from January (1)
-                                            monthList = monthGenerator(1);
+                                            monthList = monthGenerator(1,language: language());
                                             // Filter the months to include only up to the last valid month
                                             monthList = monthList
                                                 .where((month) => month.monthId <= widget.lastDateRange.month)
@@ -210,7 +216,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                           if (monthLength() < 12) {
                                             setState(() {
                                               // Generate month list starting from January (1)
-                                              monthList = monthGenerator(1);
+                                              monthList = monthGenerator(1,language: language());
                                             });
                                           }
                                           // Set the selected month name based on the current month
@@ -382,8 +388,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                       if (selectedYearNumber == widget.firstDateRange.year) {
                                                         // Case: Selected year is the first year in the range
                                                         setState(() {
-                                                          monthList = monthGenerator(widget.firstDateRange.month);
-                                                          selectedMonthName = getMonthNameFromList(widget.firstDateRange.month, CalendarConstant.monthList);
+                                                          monthList = monthGenerator(widget.firstDateRange.month,language: language());
+                                                          selectedMonthName = getMonthNameFromList(widget.firstDateRange.month, widget.language == "dari"?CalendarConstant.dariMonthList:CalendarConstant.persianMonthList);
                                                           selectedMonthNumber = widget.firstDateRange.month;
                                                           isYearDropdownOpen = !isYearDropdownOpen;
                                                           selectedYearName = yearList[index].yearName.toString();
@@ -393,8 +399,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                         // Case: Selected year is the last year in the range
                                                         _selectedDateNotifier.value = Jalali(selectedYearNumber, widget.lastDateRange.month, 1);
                                                         setState(() {
-                                                          monthList = monthGenerator(1).where((month) => month.monthId <= widget.lastDateRange.month).toList();
-                                                          selectedMonthName = getMonthNameFromList(widget.lastDateRange.month, CalendarConstant.monthList);
+                                                          monthList = monthGenerator(1,language: language()).where((month) => month.monthId <= widget.lastDateRange.month).toList();
+                                                          selectedMonthName = getMonthNameFromList(widget.lastDateRange.month, widget.language == "dari"?CalendarConstant.dariMonthList:CalendarConstant.persianMonthList);
                                                           selectedMonthNumber = widget.lastDateRange.month;
                                                           isYearDropdownOpen = !isYearDropdownOpen;
                                                           selectedYearName = yearList[index].yearName.toString();
@@ -403,7 +409,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                                         // Case: Selected year is neither the first nor the last in the range
                                                         if (monthLength() < 12) {
                                                           setState(() {
-                                                            monthList = monthGenerator(1);
+                                                            monthList = monthGenerator(1,language: language());
                                                           });
                                                         }
                                                         _selectedDateNotifier.value = Jalali(selectedYearNumber, _selectedDateNotifier.value.month, 1);
@@ -556,7 +562,8 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                                       radius: const Radius.circular(5),
                                       thickness: 8.0,
                                       child: CalendarConstant
-                                              .monthList.isNotEmpty
+                                              .persianMonthList.isNotEmpty || CalendarConstant
+                                          .dariMonthList.isNotEmpty
                                           ? SizedBox(
                                               height: 200,
                                               child: ListView.builder(

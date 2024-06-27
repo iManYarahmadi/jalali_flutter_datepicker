@@ -12,7 +12,7 @@
     <img src="https://imgurl.ir/uploads/t60130_2.jpg" width="300" alt="Jalali Flutter Date Picker - Preview 2" />
   </p>
 
-  <p>Jalali Flutter Date Picker is a customizable Jalali (Persian) date picker widget for Flutter. This package allows you to easily integrate a Jalali date picker into your Flutter applications with various customization options, including colors for different date states.</p>
+  <p>Jalali Flutter Date Picker is a customizable Jalali (Persian) date picker widget for Flutter. This package allows you to easily integrate a Jalali date picker into your Flutter applications with various customization options, including colors for different date states.(Supporting Dari Language)</p>
 
 <h2>Features</h2>
 
@@ -52,6 +52,7 @@
     onDateChanged: (value) {
       // Handle the date change in your application
     },
+    // language: "dari",If You Want Use Mont With Dari Language As Default is persian
     initialDate: Jalali(1350, 3, 2), // The initial date displayed
     firstDateRange: Jalali(1340, 3, 1), // Earliest selectable date
     lastDateRange: Jalali(1360, 8, 29), // Latest selectable date

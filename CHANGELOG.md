@@ -18,3 +18,6 @@
 
 ## 1.0.6
 - Fix Problem With Small Screen Size
+
+## 1.0.7
+- Support Dari Language For Month Name
