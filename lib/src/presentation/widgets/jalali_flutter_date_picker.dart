@@ -322,249 +322,238 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                     isYearDropdownOpen = !isYearDropdownOpen;
                   });
                 },
-                child: Container(
-                  // color: Colors.white,
-                  child: Column(
-                    children: [
-                      AnimatedContainer(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            width: 1,
-                            color: const Color(0xffE9E9E9),
-                          ),
+                child: Column(
+                  children: [
+                    AnimatedContainer(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          width: 1,
+                          color: const Color(0xffE9E9E9),
                         ),
-                        curve: Curves.fastLinearToSlowEaseIn,
-                        duration: const Duration(milliseconds: 600),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 16),
-                          child: Column(
-                            children: [
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(selectedYearName,
-                                        style: selectedYearTextStyle ??
-                                            const TextStyle(fontSize: 15)),
-                                    AnimatedCrossFade(
-                                      firstChild: SizedBox(
+                      ),
+                      curve: Curves.fastLinearToSlowEaseIn,
+                      duration: const Duration(milliseconds: 600),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 16),
+                        child: Column(
+                          children: [
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(selectedYearName,
+                                      style: selectedYearTextStyle ??
+                                          const TextStyle(fontSize: 15)),
+                                  AnimatedCrossFade(
+                                    firstChild: SizedBox(
+                                        height: 24,
+                                        width: 24,
+                                        child: customArrowWidget),
+                                    secondChild: RotatedBox(
+                                      quarterTurns: 2,
+                                      child: SizedBox(
                                           height: 24,
                                           width: 24,
                                           child: customArrowWidget),
-                                      secondChild: RotatedBox(
-                                        quarterTurns: 2,
-                                        child: SizedBox(
-                                            height: 24,
-                                            width: 24,
-                                            child: customArrowWidget),
-                                      ),
-                                      crossFadeState: isYearDropdownOpen == true
-                                          ? CrossFadeState.showSecond
-                                          : CrossFadeState.showFirst,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      secondCurve: Curves.easeIn,
-                                      sizeCurve: Curves.easeOut,
                                     ),
-                                  ]),
-                              AnimatedCrossFade(
-                                crossFadeState: isYearDropdownOpen
-                                    ? CrossFadeState.showSecond
-                                    : CrossFadeState.showFirst,
-                                duration: const Duration(milliseconds: 600),
-                                reverseDuration: Duration.zero,
-                                sizeCurve: Curves.fastLinearToSlowEaseIn,
-                                firstChild: Container(),
-                                secondChild: Column(
-                                  children: [
-                                    const Divider(
-                                      thickness: 1,
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    SizedBox(
-                                      child: RawScrollbar(
-                                        padding: EdgeInsets.zero,
-                                        controller: yearScrollController,
-                                        thumbVisibility: true,
-                                        interactive: false,
-                                        trackVisibility: false,
-                                        minThumbLength: 5,
-                                        radius: const Radius.circular(5),
-                                        thickness: 8.0,
-                                        child: yearList.isNotEmpty
-                                            ? SizedBox(
-                                                height: 200,
-                                                child: ListView.builder(
-                                                  controller:
-                                                      yearScrollController,
-                                                  itemCount: yearList.length,
-                                                  padding: EdgeInsets.zero,
-                                                  itemBuilder:
-                                                      (context, index) =>
-                                                          GestureDetector(
-                                                    onTap: () {
-                                                      selectedYearNumber =
-                                                          yearList[index]
-                                                              .yearId;
+                                    crossFadeState: isYearDropdownOpen == true
+                                        ? CrossFadeState.showSecond
+                                        : CrossFadeState.showFirst,
+                                    duration: const Duration(milliseconds: 300),
+                                    secondCurve: Curves.easeIn,
+                                    sizeCurve: Curves.easeOut,
+                                  ),
+                                ]),
+                            AnimatedCrossFade(
+                              crossFadeState: isYearDropdownOpen
+                                  ? CrossFadeState.showSecond
+                                  : CrossFadeState.showFirst,
+                              duration: const Duration(milliseconds: 600),
+                              reverseDuration: Duration.zero,
+                              sizeCurve: Curves.fastLinearToSlowEaseIn,
+                              firstChild: Container(),
+                              secondChild: Column(
+                                children: [
+                                  const Divider(
+                                    thickness: 1,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  SizedBox(
+                                    child: RawScrollbar(
+                                      padding: EdgeInsets.zero,
+                                      controller: yearScrollController,
+                                      thumbVisibility: true,
+                                      interactive: false,
+                                      trackVisibility: false,
+                                      minThumbLength: 5,
+                                      radius: const Radius.circular(5),
+                                      thickness: 8.0,
+                                      child: yearList.isNotEmpty
+                                          ? SizedBox(
+                                              height: 200,
+                                              child: ListView.builder(
+                                                controller:
+                                                    yearScrollController,
+                                                itemCount: yearList.length,
+                                                padding: EdgeInsets.zero,
+                                                itemBuilder: (context, index) =>
+                                                    GestureDetector(
+                                                  onTap: () {
+                                                    selectedYearNumber =
+                                                        yearList[index].yearId;
 
-                                                      if (selectedYearNumber ==
-                                                          widget.firstDateRange
-                                                              .year) {
-                                                        // Case: Selected year is the first year in the range
-                                                        setState(() {
-                                                          monthList = monthGenerator(
-                                                              widget
-                                                                  .firstDateRange
-                                                                  .month,
-                                                              language:
-                                                                  language());
-                                                          selectedMonthName = getMonthNameFromList(
-                                                              widget
-                                                                  .firstDateRange
-                                                                  .month,
-                                                              widget.language ==
-                                                                      "dari"
-                                                                  ? CalendarConstant
-                                                                      .dariMonthList
-                                                                  : CalendarConstant
-                                                                      .persianMonthList);
-                                                          selectedMonthNumber =
-                                                              widget
-                                                                  .firstDateRange
-                                                                  .month;
-                                                          isYearDropdownOpen =
-                                                              !isYearDropdownOpen;
-                                                          selectedYearName =
-                                                              yearList[index]
-                                                                  .yearName
-                                                                  .toString();
-                                                        });
-                                                        _selectedDateNotifier
-                                                                .value =
-                                                            Jalali(
-                                                                selectedYearNumber,
-                                                                widget
-                                                                    .firstDateRange
-                                                                    .month,
-                                                                1);
-                                                      } else if (selectedYearNumber ==
-                                                          widget.lastDateRange
-                                                              .year) {
-                                                        // Case: Selected year is the last year in the range
-                                                        _selectedDateNotifier
-                                                                .value =
-                                                            Jalali(
-                                                                selectedYearNumber,
-                                                                widget
-                                                                    .lastDateRange
-                                                                    .month,
-                                                                1);
-                                                        setState(() {
-                                                          monthList = monthGenerator(
-                                                                  1,
-                                                                  language:
-                                                                      language())
-                                                              .where((month) =>
-                                                                  month
-                                                                      .monthId <=
-                                                                  widget
-                                                                      .lastDateRange
-                                                                      .month)
-                                                              .toList();
-                                                          selectedMonthName = getMonthNameFromList(
-                                                              widget
-                                                                  .lastDateRange
-                                                                  .month,
-                                                              widget.language ==
-                                                                      "dari"
-                                                                  ? CalendarConstant
-                                                                      .dariMonthList
-                                                                  : CalendarConstant
-                                                                      .persianMonthList);
-                                                          selectedMonthNumber =
-                                                              widget
-                                                                  .lastDateRange
-                                                                  .month;
-                                                          isYearDropdownOpen =
-                                                              !isYearDropdownOpen;
-                                                          selectedYearName =
-                                                              yearList[index]
-                                                                  .yearName
-                                                                  .toString();
-                                                        });
-                                                      } else {
-                                                        // Case: Selected year is neither the first nor the last in the range
-                                                        if (monthLength() <
-                                                            12) {
-                                                          setState(() {
-                                                            monthList =
-                                                                monthGenerator(
-                                                                    1,
-                                                                    language:
-                                                                        language());
-                                                          });
-                                                        }
-                                                        _selectedDateNotifier
-                                                                .value =
-                                                            Jalali(
-                                                                selectedYearNumber,
-                                                                _selectedDateNotifier
-                                                                    .value
-                                                                    .month,
-                                                                1);
-                                                        setState(() {
-                                                          isYearDropdownOpen =
-                                                              !isYearDropdownOpen;
-                                                          selectedYearName =
-                                                              yearList[index]
-                                                                  .yearName
-                                                                  .toString();
-                                                        });
-                                                      }
-                                                    },
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 16.0),
-                                                      child: SizedBox(
-                                                        height: 25,
-                                                        child: Text(
+                                                    if (selectedYearNumber ==
+                                                        widget.firstDateRange
+                                                            .year) {
+                                                      // Case: Selected year is the first year in the range
+                                                      setState(() {
+                                                        monthList = monthGenerator(
+                                                            widget
+                                                                .firstDateRange
+                                                                .month,
+                                                            language:
+                                                                language());
+                                                        selectedMonthName = getMonthNameFromList(
+                                                            widget
+                                                                .firstDateRange
+                                                                .month,
+                                                            widget.language ==
+                                                                    "dari"
+                                                                ? CalendarConstant
+                                                                    .dariMonthList
+                                                                : CalendarConstant
+                                                                    .persianMonthList);
+                                                        selectedMonthNumber =
+                                                            widget
+                                                                .firstDateRange
+                                                                .month;
+                                                        isYearDropdownOpen =
+                                                            !isYearDropdownOpen;
+                                                        selectedYearName =
                                                             yearList[index]
                                                                 .yearName
-                                                                .toString(),
-                                                            style: yearsDropDownItemTextStyle ??
-                                                                const TextStyle(
-                                                                    fontSize:
-                                                                        14)),
-                                                      ),
+                                                                .toString();
+                                                      });
+                                                      _selectedDateNotifier
+                                                              .value =
+                                                          Jalali(
+                                                              selectedYearNumber,
+                                                              widget
+                                                                  .firstDateRange
+                                                                  .month,
+                                                              1);
+                                                    } else if (selectedYearNumber ==
+                                                        widget.lastDateRange
+                                                            .year) {
+                                                      // Case: Selected year is the last year in the range
+                                                      _selectedDateNotifier
+                                                              .value =
+                                                          Jalali(
+                                                              selectedYearNumber,
+                                                              widget
+                                                                  .lastDateRange
+                                                                  .month,
+                                                              1);
+                                                      setState(() {
+                                                        monthList = monthGenerator(
+                                                                1,
+                                                                language:
+                                                                    language())
+                                                            .where((month) =>
+                                                                month.monthId <=
+                                                                widget
+                                                                    .lastDateRange
+                                                                    .month)
+                                                            .toList();
+                                                        selectedMonthName = getMonthNameFromList(
+                                                            widget.lastDateRange
+                                                                .month,
+                                                            widget.language ==
+                                                                    "dari"
+                                                                ? CalendarConstant
+                                                                    .dariMonthList
+                                                                : CalendarConstant
+                                                                    .persianMonthList);
+                                                        selectedMonthNumber =
+                                                            widget.lastDateRange
+                                                                .month;
+                                                        isYearDropdownOpen =
+                                                            !isYearDropdownOpen;
+                                                        selectedYearName =
+                                                            yearList[index]
+                                                                .yearName
+                                                                .toString();
+                                                      });
+                                                    } else {
+                                                      // Case: Selected year is neither the first nor the last in the range
+                                                      if (monthLength() < 12) {
+                                                        setState(() {
+                                                          monthList =
+                                                              monthGenerator(1,
+                                                                  language:
+                                                                      language());
+                                                        });
+                                                      }
+                                                      _selectedDateNotifier
+                                                              .value =
+                                                          Jalali(
+                                                              selectedYearNumber,
+                                                              _selectedDateNotifier
+                                                                  .value.month,
+                                                              1);
+                                                      setState(() {
+                                                        isYearDropdownOpen =
+                                                            !isYearDropdownOpen;
+                                                        selectedYearName =
+                                                            yearList[index]
+                                                                .yearName
+                                                                .toString();
+                                                      });
+                                                    }
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 16.0),
+                                                    child: SizedBox(
+                                                      height: 25,
+                                                      child: Text(
+                                                          yearList[index]
+                                                              .yearName
+                                                              .toString(),
+                                                          style:
+                                                              yearsDropDownItemTextStyle ??
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          14)),
                                                     ),
                                                   ),
                                                 ),
-                                              )
-                                            : const Align(
-                                                alignment: Alignment.topRight,
-                                                child: Text('لیست خالی است'),
                                               ),
-                                      ),
+                                            )
+                                          : const Align(
+                                              alignment: Alignment.topRight,
+                                              child: Text('لیست خالی است'),
+                                            ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -592,151 +581,142 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                     isMonthDropdownOpen = !isMonthDropdownOpen;
                   });
                 },
-                child: Container(
-                  // color: Colors.white,
-                  child: Stack(
-                    children: [
-                      AnimatedContainer(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(
-                                width: 1, color: const Color(0xffE9E9E9))),
-                        curve: Curves.fastLinearToSlowEaseIn,
-                        duration: const Duration(milliseconds: 600),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 16),
-                          child: Column(
-                            children: [
-                              Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      selectedMonthName,
-                                      style: selectedMonthTextStyle ??
-                                          const TextStyle(fontSize: 15),
-                                    ),
-                                    AnimatedCrossFade(
-                                      firstChild: SizedBox(
-                                          width: 24,
-                                          height: 24,
-                                          child: customArrowWidget),
-                                      secondChild: SizedBox(
-                                          width: 24,
-                                          height: 24,
-                                          child: RotatedBox(
-                                              quarterTurns: 2,
-                                              child: customArrowWidget)),
-                                      crossFadeState:
-                                          isMonthDropdownOpen == true
-                                              ? CrossFadeState.showSecond
-                                              : CrossFadeState.showFirst,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      secondCurve: Curves.easeIn,
-                                      sizeCurve: Curves.easeOut,
-                                    ),
-                                  ]),
-                              AnimatedCrossFade(
-                                crossFadeState: isMonthDropdownOpen
-                                    ? CrossFadeState.showSecond
-                                    : CrossFadeState.showFirst,
-                                duration: const Duration(milliseconds: 600),
-                                reverseDuration: Duration.zero,
-                                sizeCurve: Curves.fastLinearToSlowEaseIn,
-                                firstChild: Container(),
-                                secondChild: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Divider(
-                                      thickness: 1,
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    RawScrollbar(
-                                      padding: EdgeInsets.zero,
-                                      controller: monthScrollController,
-                                      thumbVisibility: true,
-                                      interactive: false,
-                                      trackVisibility: false,
-                                      minThumbLength: 5,
-                                      radius: const Radius.circular(5),
-                                      thickness: 8.0,
-                                      child: CalendarConstant.persianMonthList
-                                                  .isNotEmpty ||
-                                              CalendarConstant
-                                                  .dariMonthList.isNotEmpty
-                                          ? SizedBox(
-                                              height: 200,
-                                              child: ListView.builder(
-                                                padding: EdgeInsets.zero,
-                                                controller:
-                                                    monthScrollController,
-                                                itemCount: monthList.length,
-                                                itemBuilder: (context, index) =>
-                                                    GestureDetector(
-                                                  onTap: () {
-                                                    selectedMonthNumber =
-                                                        monthList[index]
-                                                            .monthId;
-                                                    _selectedDateNotifier
-                                                            .value =
-                                                        Jalali(
-                                                            selectedYearNumber,
-                                                            monthList[index]
-                                                                .monthId,
-                                                            1);
-                                                    setState(() {
-                                                      isMonthDropdownOpen =
-                                                          !isMonthDropdownOpen;
-                                                      selectedMonthName =
+                child: Stack(
+                  children: [
+                    AnimatedContainer(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(
+                              width: 1, color: const Color(0xffE9E9E9))),
+                      curve: Curves.fastLinearToSlowEaseIn,
+                      duration: const Duration(milliseconds: 600),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 16),
+                        child: Column(
+                          children: [
+                            Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    selectedMonthName,
+                                    style: selectedMonthTextStyle ??
+                                        const TextStyle(fontSize: 15),
+                                  ),
+                                  AnimatedCrossFade(
+                                    firstChild: SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: customArrowWidget),
+                                    secondChild: SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: RotatedBox(
+                                            quarterTurns: 2,
+                                            child: customArrowWidget)),
+                                    crossFadeState: isMonthDropdownOpen == true
+                                        ? CrossFadeState.showSecond
+                                        : CrossFadeState.showFirst,
+                                    duration: const Duration(milliseconds: 300),
+                                    secondCurve: Curves.easeIn,
+                                    sizeCurve: Curves.easeOut,
+                                  ),
+                                ]),
+                            AnimatedCrossFade(
+                              crossFadeState: isMonthDropdownOpen
+                                  ? CrossFadeState.showSecond
+                                  : CrossFadeState.showFirst,
+                              duration: const Duration(milliseconds: 600),
+                              reverseDuration: Duration.zero,
+                              sizeCurve: Curves.fastLinearToSlowEaseIn,
+                              firstChild: Container(),
+                              secondChild: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Divider(
+                                    thickness: 1,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  RawScrollbar(
+                                    padding: EdgeInsets.zero,
+                                    controller: monthScrollController,
+                                    thumbVisibility: true,
+                                    interactive: false,
+                                    trackVisibility: false,
+                                    minThumbLength: 5,
+                                    radius: const Radius.circular(5),
+                                    thickness: 8.0,
+                                    child: CalendarConstant
+                                                .persianMonthList.isNotEmpty ||
+                                            CalendarConstant
+                                                .dariMonthList.isNotEmpty
+                                        ? SizedBox(
+                                            height: 200,
+                                            child: ListView.builder(
+                                              padding: EdgeInsets.zero,
+                                              controller: monthScrollController,
+                                              itemCount: monthList.length,
+                                              itemBuilder: (context, index) =>
+                                                  GestureDetector(
+                                                onTap: () {
+                                                  selectedMonthNumber =
+                                                      monthList[index].monthId;
+                                                  _selectedDateNotifier.value =
+                                                      Jalali(
+                                                          selectedYearNumber,
                                                           monthList[index]
-                                                              .monthName;
-                                                    });
-                                                  },
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 16.0),
-                                                    child: SizedBox(
-                                                      height: 25,
-                                                      child: Text(
+                                                              .monthId,
+                                                          1);
+                                                  setState(() {
+                                                    isMonthDropdownOpen =
+                                                        !isMonthDropdownOpen;
+                                                    selectedMonthName =
                                                         monthList[index]
-                                                            .monthName
-                                                            .toString(),
-                                                        style:
-                                                            monthDropDownItemTextStyle ??
-                                                                const TextStyle(
-                                                                    fontSize:
-                                                                        14),
-                                                      ),
+                                                            .monthName;
+                                                  });
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 16.0),
+                                                  child: SizedBox(
+                                                    height: 25,
+                                                    child: Text(
+                                                      monthList[index]
+                                                          .monthName
+                                                          .toString(),
+                                                      style:
+                                                          monthDropDownItemTextStyle ??
+                                                              const TextStyle(
+                                                                  fontSize: 14),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            )
-                                          : const Align(
-                                              alignment: Alignment.topRight,
-                                              child: Text('نتیجه ای یافت نشد'),
                                             ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
-                                ),
+                                          )
+                                        : const Align(
+                                            alignment: Alignment.topRight,
+                                            child: Text('نتیجه ای یافت نشد'),
+                                          ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

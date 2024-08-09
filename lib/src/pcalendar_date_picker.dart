@@ -635,7 +635,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                     icon: Icon(
                       Icons.chevron_left,
                       color: widget.footerIconColor,
-                      size: 12,
+                      size: 18,
                     ),
                     color: controlColor,
                     hoverColor: Colors.white,
@@ -750,7 +750,7 @@ class _DayPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     // final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;
-    final TextStyle? dayStyle = textTheme.bodySmall;
+    final TextStyle? dayStyle = textTheme.bodyMedium;
     // final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
     //final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
     //final Color selectedDayColor = colorScheme.onPrimary;
@@ -804,8 +804,10 @@ class _DayPicker extends StatelessWidget {
         Widget dayWidget = Container(
           decoration: decoration,
           child: Center(
-            child: Text(formatDecimal(day),
-                style: dayStyle!.apply(color: dayColor)),
+            child: Text(
+              formatDecimal(day),
+              style: dayStyle!.apply(color: dayColor),
+            ),
           ),
         );
 
