@@ -328,6 +328,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                     children: [
                       AnimatedContainer(
                         decoration: BoxDecoration(
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
                             width: 1,
@@ -597,6 +598,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                     children: [
                       AnimatedContainer(
                         decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(10.0),
                             border: Border.all(
                                 width: 1, color: const Color(0xffE9E9E9))),
