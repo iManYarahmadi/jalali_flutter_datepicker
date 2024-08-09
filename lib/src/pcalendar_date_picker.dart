@@ -635,7 +635,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                     icon: Icon(
                       Icons.chevron_left,
                       color: widget.footerIconColor,
-                      size: 18,
+                      size: 22,
                     ),
                     color: controlColor,
                     hoverColor: Colors.white,
@@ -675,7 +675,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                   IconButton(
                     hoverColor: Colors.white,
                     icon: Icon(Icons.chevron_right,
-                        color: widget.footerIconColor, size: 12),
+                        color: widget.footerIconColor, size: 22),
                     color: controlColor,
                     tooltip: _isDisplayingLastMonth ? null : nextTooltipText,
                     onPressed: _isDisplayingLastMonth ? null : _handleNextMonth,
