@@ -331,7 +331,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
                             width: 1,
-                            // color: const Color(0xffE9E9E9),
+                            color: const Color(0xffE9E9E9),
                           ),
                         ),
                         curve: Curves.fastLinearToSlowEaseIn,
@@ -567,20 +567,6 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                 ),
               ),
             ),
-            Positioned(
-              top: 0,
-              right: 20,
-              child: Container(
-                  width: 28,
-                  height: 22,
-                  decoration: const BoxDecoration(color: Colors.transparent),
-                  child: const Center(
-                    child: Text(
-                      ' ddd',
-                      style: TextStyle(color: Colors.black, fontSize: 13),
-                    ),
-                  )),
-            ),
           ],
         ),
       ],
@@ -750,17 +736,6 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                     ],
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              right: 20,
-              child: Container(
-                width: 25,
-                height: 18,
-                decoration: const BoxDecoration(color: Colors.transparent),
-                child: const Text(' ssss',
-                    style: TextStyle(color: Colors.black, fontSize: 13)),
               ),
             ),
           ],
