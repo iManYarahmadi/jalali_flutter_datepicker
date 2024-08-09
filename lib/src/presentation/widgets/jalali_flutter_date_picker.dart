@@ -323,14 +323,17 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                   });
                 },
                 child: Container(
-                  color: Colors.white,
+                  // color: Colors.white,
                   child: Column(
                     children: [
                       AnimatedContainer(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(
-                                width: 1, color: const Color(0xffE9E9E9))),
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(
+                            width: 1,
+                            // color: const Color(0xffE9E9E9),
+                          ),
+                        ),
                         curve: Curves.fastLinearToSlowEaseIn,
                         duration: const Duration(milliseconds: 600),
                         child: Padding(
@@ -573,7 +576,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                   decoration: const BoxDecoration(color: Colors.transparent),
                   child: const Center(
                     child: Text(
-                      ' سال',
+                      ' ddd',
                       style: TextStyle(color: Colors.black, fontSize: 13),
                     ),
                   )),
@@ -603,7 +606,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                   });
                 },
                 child: Container(
-                  color: Colors.white,
+                  // color: Colors.white,
                   child: Stack(
                     children: [
                       AnimatedContainer(
@@ -756,7 +759,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                 width: 25,
                 height: 18,
                 decoration: const BoxDecoration(color: Colors.transparent),
-                child: const Text(' ماه',
+                child: const Text(' ssss',
                     style: TextStyle(color: Colors.black, fontSize: 13)),
               ),
             ),
