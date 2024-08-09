@@ -109,7 +109,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
 
   ///Note convert month selected number to name of week
   late String selectedMonthName = getMonthNameFromList(
-      widget.firstDateRange.month,
+      widget.initialDate.month,
       widget.language == "dari"
           ? CalendarConstant.dariMonthList
           : CalendarConstant.persianMonthList);

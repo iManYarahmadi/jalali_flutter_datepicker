@@ -164,7 +164,6 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
     _currentDisplayedMonthDate =
         Jalali(widget.initialDate.year, widget.initialDate.month);
     _selectedDate = widget.initialDate;
-    print('${widget.initialDate.month}');
   }
 
   @override
