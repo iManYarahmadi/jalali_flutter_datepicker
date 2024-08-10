@@ -378,7 +378,6 @@ class _DatePickerModeToggleButtonState
         children: <Widget>[
           Flexible(
             child: Semantics(
-              // TODO(darrenaustin): localize 'Select year'
               label: 'Select year',
               excludeSemantics: true,
               button: true,
@@ -766,8 +765,10 @@ class _DayPicker extends StatelessWidget {
     final List<Widget> dayItems = <Widget>[];
     // 1-based day of month, e.g. 1-31 for January, and 1-29 for February on
     // a leap year.
+    int dayIndex = 0;
     int day = -dayOffset;
     while (day < daysInMonth) {
+      dayIndex++;
       day++;
       if (day < 1) {
         dayItems.add(Container());
@@ -779,7 +780,7 @@ class _DayPicker extends StatelessWidget {
                 !selectableDayPredicate!(dayToBuild));
 
         BoxDecoration? decoration;
-        Color dayColor = enabledDayColor;
+        Color dayColor = (dayIndex % 7 != 0) ? enabledDayColor : Colors.red;
         final bool isSelectedDay = utils.isSameDay(selectedDate, dayToBuild);
         if (isSelectedDay) {
           // The selected day gets a circle background highlight, and a
