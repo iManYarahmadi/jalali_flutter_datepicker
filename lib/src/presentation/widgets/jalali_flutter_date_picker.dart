@@ -294,6 +294,41 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
                             ),
                           ],
                         ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedDateNotifier =
+                                  ValueNotifier<Jalali>(widget.initialDate);
+                              selectedYearNumber = widget.initialDate.year;
+                              if (selectedYearNumber ==
+                                  widget.firstDateRange.year) {
+                                monthList = monthGenerator(
+                                    widget.firstDateRange.month,
+                                    language: language());
+                              } else if (selectedYearNumber ==
+                                  widget.lastDateRange.year) {
+                                monthList =
+                                    monthGenerator(1, language: language())
+                                        .where((month) =>
+                                            month.monthId <=
+                                            widget.lastDateRange.month)
+                                        .toList();
+                              } else {
+                                monthList =
+                                    monthGenerator(1, language: language());
+                              }
+                              selectedMonthName =
+                                  monthList[widget.initialDate.month - 1]
+                                      .monthName;
+                              selectedYearName =
+                                  widget.initialDate.year.toString();
+                            });
+                          },
+                          child: Text(
+                            'امروز',
+                            style: widget.footerTextStyle,
+                          ),
+                        )
                       ],
                     ),
                   ),

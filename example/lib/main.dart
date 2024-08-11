@@ -26,9 +26,9 @@ class JalaliHomePage extends StatelessWidget {
       body: JalaliFlutterDatePicker(
         onDateChanged: (value) {},
         // language: "dari",If You Want Use Mont With Dari Language As Default is persian
-        initialDate: Jalali(1350, 3, 2),
+        initialDate: Jalali.fromDateTime(DateTime.now()),
         firstDateRange: Jalali(1340, 1, 1),
-        lastDateRange: Jalali(1360, 8, 29),
+        lastDateRange: Jalali(1410, 8, 29),
         disabledDayColor: Colors.grey,
         enabledDayColor: Colors.black,
         selectedDayBackground: const Color(0xffFD9404),
