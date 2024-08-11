@@ -378,7 +378,6 @@ class _DatePickerModeToggleButtonState
         children: <Widget>[
           Flexible(
             child: Semantics(
-              // TODO(darrenaustin): localize 'Select year'
               label: 'Select year',
               excludeSemantics: true,
               button: true,
@@ -635,7 +634,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                     icon: Icon(
                       Icons.chevron_left,
                       color: widget.footerIconColor,
-                      size: 12,
+                      size: 22,
                     ),
                     color: controlColor,
                     hoverColor: Colors.white,
@@ -675,7 +674,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                   IconButton(
                     hoverColor: Colors.white,
                     icon: Icon(Icons.chevron_right,
-                        color: widget.footerIconColor, size: 12),
+                        color: widget.footerIconColor, size: 22),
                     color: controlColor,
                     tooltip: _isDisplayingLastMonth ? null : nextTooltipText,
                     onPressed: _isDisplayingLastMonth ? null : _handleNextMonth,
@@ -750,7 +749,7 @@ class _DayPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     // final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;
-    final TextStyle? dayStyle = textTheme.bodySmall;
+    final TextStyle? dayStyle = textTheme.bodyMedium;
     // final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
     //final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
     //final Color selectedDayColor = colorScheme.onPrimary;
@@ -766,8 +765,10 @@ class _DayPicker extends StatelessWidget {
     final List<Widget> dayItems = <Widget>[];
     // 1-based day of month, e.g. 1-31 for January, and 1-29 for February on
     // a leap year.
+    int dayIndex = 0;
     int day = -dayOffset;
     while (day < daysInMonth) {
+      dayIndex++;
       day++;
       if (day < 1) {
         dayItems.add(Container());
@@ -779,7 +780,7 @@ class _DayPicker extends StatelessWidget {
                 !selectableDayPredicate!(dayToBuild));
 
         BoxDecoration? decoration;
-        Color dayColor = enabledDayColor;
+        Color dayColor = (dayIndex % 7 != 0) ? enabledDayColor : Colors.red;
         final bool isSelectedDay = utils.isSameDay(selectedDate, dayToBuild);
         if (isSelectedDay) {
           // The selected day gets a circle background highlight, and a
@@ -804,8 +805,10 @@ class _DayPicker extends StatelessWidget {
         Widget dayWidget = Container(
           decoration: decoration,
           child: Center(
-            child: Text(formatDecimal(day),
-                style: dayStyle!.apply(color: dayColor)),
+            child: Text(
+              formatDecimal(day),
+              style: dayStyle!.apply(color: dayColor),
+            ),
           ),
         );
 
