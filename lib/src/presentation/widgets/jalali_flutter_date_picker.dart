@@ -106,7 +106,7 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
 
   ///Note convert month selected number to name of week
   late String selectedMonthName = getMonthNameFromList(
-      widget.firstDateRange.month, widget.language == "dari"?CalendarConstant.dariMonthList:CalendarConstant.persianMonthList);
+      widget.initialDate.month, widget.language == "dari"?CalendarConstant.dariMonthList:CalendarConstant.persianMonthList);
   late String selectedYearName = widget.initialDate.year.toString();
 
   ///Note month and year scroll controller
@@ -130,16 +130,26 @@ class _JalaliFlutterDatePickerState extends State<JalaliFlutterDatePicker> {
     // Initialize the month list based on the initial date
     _selectedDateNotifier = ValueNotifier<Jalali>(widget.initialDate);
     selectedYearNumber = widget.initialDate.year;
-    if (selectedYearNumber == widget.firstDateRange.year) {
-      monthList = monthGenerator(widget.firstDateRange.month,language: language());
+    if (selectedYearNumber == widget.lastDateRange.year &&
+        selectedYearNumber == widget.firstDateRange.year) {
+      monthList = monthGenerator(1, language: language())
+          .where((month) =>
+      month.monthId <= widget.lastDateRange.month &&
+          month.monthId >= widget.firstDateRange.month)
+          .toList();
+    } else if (selectedYearNumber == widget.firstDateRange.year) {
+      monthList =
+          monthGenerator(widget.firstDateRange.month, language: language());
     } else if (selectedYearNumber == widget.lastDateRange.year) {
-      monthList = monthGenerator(1,language: language())
+      monthList = monthGenerator(1, language: language())
           .where((month) => month.monthId <= widget.lastDateRange.month)
           .toList();
     } else {
-      monthList = monthGenerator(1,language: language());
+      monthList = monthGenerator(1, language: language());
     }
-    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
