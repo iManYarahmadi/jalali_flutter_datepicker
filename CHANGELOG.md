@@ -25,3 +25,6 @@
 ## 1.0.8
 - Fix Month Drop Down List Limited To First Date And Last Date Range In Same Year
 - Showing Selected Month Base On Initial Date
+
+## 1.0.9
+- Update Value When Month And Year Drop Down Selected
