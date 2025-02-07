@@ -47,7 +47,7 @@ class JalaliHomePage extends StatelessWidget {
           child: JalaliFlutterDatePicker(
             onDateChanged: (value) {
             },
-            language: "dari",
+            // language: "dari",
             initialDate: Jalali(1350, 5, 2),
             firstDateRange: Jalali(1340, 3, 1),
             lastDateRange: Jalali(1360, 8, 29),
