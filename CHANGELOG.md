@@ -28,3 +28,6 @@
 
 ## 1.0.9
 - Update Value When Month And Year Drop Down Selected
+
+## 1.1.0
+- Refactor Some Code To Compatible Latest Flutter Version
